@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function About(props) {
+export default function Login(props) {
     return (
         <h1>
             This is the login page.
