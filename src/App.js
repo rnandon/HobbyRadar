@@ -13,6 +13,11 @@ import Navbar from "./features/Elements/Navbar/Navbar";
 import Account from './features/Pages/Account/Account';
 import About from "./features/Pages/About/About";
 import NotFound from './features/Pages/NotFound/NotFound';
+import Login from "./features/Pages/Login/Login";
+import Register from "./features/Pages/Register/Register";
+import FindHobbies from "./features/Pages/FindHobbies/FindHobbies";
+import FindEvents from "./features/Pages/FindEvents/FindEvents";
+import FindPeople from "./features/Pages/FindPeople/FindPeople";
 
 
 function App() {
@@ -38,8 +43,14 @@ function App() {
 
             <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/register" component={Register} />
+                <Route path="/login" component={Login} />
                 <Route path="/account" component={Account} />
                 <Route path="/about" component={About} />
+                
+                <Route path="/hobbies" component={FindHobbies} />
+                <Route path="/events" component={FindEvents} />
+                <Route path="/people" component={FindPeople} />
 
                 <Route path="*" component={NotFound} />
             </Switch>
