@@ -18,6 +18,9 @@ import Register from "./features/Pages/Register/Register";
 import FindHobbies from "./features/Pages/FindHobbies/FindHobbies";
 import FindEvents from "./features/Pages/FindEvents/FindEvents";
 import FindPeople from "./features/Pages/FindPeople/FindPeople";
+import Hobby from "./features/Pages/Hobby/Hobby";
+import Event from "./features/Pages/Event/Event";
+import OtherUser from "./features/Pages/OtherUser/OtherUser";
 
 
 function App() {
@@ -49,8 +52,14 @@ function App() {
                 <Route path="/about" component={About} />
                 
                 <Route path="/hobbies" component={FindHobbies} />
+                <Route path="/hobbies/:id" component={Hobby} />
+
                 <Route path="/events" component={FindEvents} />
+                <Route path="/events/:id" component={Event} />
+                
                 <Route path="/people" component={FindPeople} />
+                <Route path="/people/:id" component={OtherUser} />
+
 
                 <Route path="*" component={NotFound} />
             </Switch>
