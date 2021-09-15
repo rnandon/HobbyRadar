@@ -10,6 +10,8 @@ import { setUser } from "./features/User/UserSlice";
 import "./App.css";
 import Home from "./features/Pages/Home/Home";
 import Navbar from "./features/Elements/Navbar/Navbar";
+import Account from './features/Pages/Account/Account';
+import About from "./features/Pages/About/About";
 import NotFound from './features/Pages/NotFound/NotFound';
 
 
@@ -36,6 +38,8 @@ function App() {
 
             <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/account" component={Account} />
+                <Route path="/about" component={About} />
 
                 <Route path="*" component={NotFound} />
             </Switch>
