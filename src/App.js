@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./features/User/UserSlice";
+import { setToken } from "./features/User/TokenSlice";
 
 import "./App.css";
 import Home from "./features/Pages/Home/Home";
@@ -31,14 +32,21 @@ function App() {
 
     // Try to get a local token, then get the user info
     useEffect(() => {
-        try{
-            const jwt = localStorage.getItem('token');
-            const localUser = jwtDecode(jwt);
-            if (localUser){
-                let response = axios.get(`https://localhost:44394/api/users/${localUser.id}`).then(dispatch(setUser(response.data)));
-            }
-        } catch {}
+        getUserInfo()
     }, [])
+    
+    
+    async function getUserInfo() {
+        const jwt = localStorage.getItem('token');
+        if (jwt) {
+            const localUser = jwtDecode(jwt);
+            dispatch(setToken(localUser));
+            let response = await axios.get(`https://localhost:44394/api/users/${localUser.id}`);
+            if (response.data) {
+                dispatch(setUser(response.data));
+            }
+        }
+    }
 
     return (
         <Router className="App">
@@ -67,3 +75,5 @@ function App() {
 }
 
 export default App;
+
+

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setToken } from '../../User/TokenSlice';
@@ -6,11 +7,12 @@ import { setUser } from '../../User/UserSlice';
 
 export default function Navbar(props) {
     const user = useSelector((state) => state.user.value)
+    const dispatch = useDispatch();
 
     const logout = () => {
         localStorage.removeItem('token');
-        setToken("");
-        setUser("");
+        dispatch(setToken(""));
+        dispatch(setUser(""));
     }
 
     return (
@@ -38,6 +40,7 @@ export default function Navbar(props) {
                         <div> 
                             <Link to="/login" >Log In</Link>
                             <Link to="/register" >Register</Link>
+                            <button onClick={logout} >Log out</button>
                         </div>
                     }
                 </div>

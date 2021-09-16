@@ -3,17 +3,18 @@ import { useHistory } from 'react-router';
 
 import axios from 'axios';
 import { setToken } from '../User/TokenSlice';
+import { useDispatch } from 'react-redux';
 
 const useLogin = (setError) => {
     const history = useHistory();
+    const dispatch = useDispatch();
 
     async function send(values) {
         try {
             const response = await axios.post("https://localhost:44394/api/authentication/login", values);
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
-                setToken(response.data.token);
-                setError(false);
+                dispatch(setToken(response.data.token));
                 history.push("/");
             }
         } catch {

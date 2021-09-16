@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     value: "",
-    status: "not logged in",
 };
 
 export const userSlice = createSlice({
