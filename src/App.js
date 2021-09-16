@@ -68,7 +68,7 @@ function App() {
                 <Route path="/account" component={Account} />
                 <Route path="/about" component={About} />
                 
-                <Route path="/hobbies" component={FindHobbies} />
+                <Route path="/hobbies" exact component={FindHobbies} />
                 <Route path="/hobbies/:id" component={Hobby} />
 
                 <Route path="/events" component={FindEvents} />

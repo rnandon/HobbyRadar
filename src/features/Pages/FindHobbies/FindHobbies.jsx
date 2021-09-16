@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 export default function FindHobbies(props) {
@@ -13,12 +14,12 @@ export default function FindHobbies(props) {
                 )
             })
             return (
-                <div>
+                <Link to={`/hobbies/${hobby.hobbyId}`}>
                     <h2>{hobby.name}</h2>
                     <div>
                         {hobbyTags}
                     </div>
-                </div>
+                </Link>
             )
         });
     }
