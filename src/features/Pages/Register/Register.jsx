@@ -6,7 +6,7 @@ import useRegister from '../../Hooks/useRegister';
 
 export default function Register(props) {
     const history = useHistory();
-    const { register, userInfo } = useRegister();
+    const { register } = useRegister();
     const { formValues, handleChange, handleSubmit } = useForm(() => {});
     const [valid, setValid] = useState({ 
         firstName: true,
@@ -45,7 +45,6 @@ export default function Register(props) {
                 userZip: formValues.userZip
             };
             register(userDto);
-            //history.push("/login");
         }
     }
 
@@ -169,10 +168,10 @@ export default function Register(props) {
                 <label htmlFor="password" className="form-label">Password</label>
                 <div className="input-group has-validation">
                     <input type="password" className="form-control" name="password" id="password" onChange={validateChange} required />
-                {!valid.username && 
+                {!valid.password && 
                     <Fragment>
                         <div>
-                            Please choose a username.
+                            Password requirements: Minimum 8 characters, requires at least one number.
                         </div>
                     </Fragment>
                 }
@@ -182,10 +181,10 @@ export default function Register(props) {
                 <label htmlFor="passwordConfirmation" className="form-label">Confirm password</label>
                 <div className="input-group has-validation">
                     <input type="password" className="form-control" name="passwordConfirmation" id="passwordConfirmation" onChange={validateChange} required />
-                {!valid.username && 
+                {!valid.passwordConfirmation && 
                     <Fragment>
                         <div>
-                            Please choose a username.
+                            Password confirmation needs to match password.
                         </div>
                     </Fragment>
                 }
@@ -303,20 +302,3 @@ export default function Register(props) {
         </form>
     )
 }
-
-// {
-//     "firstname": "Ryan",
-//     "lastname": "D",
-//     "username": "admin",
-//     "password": "somePass12",
-//     "email": "ryan@devcodecamp.com",
-//     "phonenumber": "555-555-5555"
-// }
-
-
-// o.Password.RequireDigit = true;
-// o.Password.RequireLowercase = false;
-// o.Password.RequireUppercase = false;
-// o.Password.RequireNonAlphanumeric = false;
-// o.Password.RequiredLength = 8;
-// o.User.RequireUniqueEmail = true;
