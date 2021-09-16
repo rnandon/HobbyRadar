@@ -3,7 +3,7 @@ import useForm from '../../Hooks/useForm';
 import useLogin from '../../Hooks/useLogin';
 
 
-export default function Register(props) {
+export default function Login(props) {
     const [error, setError] = useState(false);
     const send = useLogin(setError);
     const { formValues, handleChange, handleSubmit } = useForm(() => send(formValues));

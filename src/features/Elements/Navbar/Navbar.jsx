@@ -1,30 +1,45 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { setToken } from '../../User/TokenSlice';
+import { setUser } from '../../User/UserSlice';
 
 export default function Navbar(props) {
+    const user = useSelector((state) => state.user.value)
 
+    const logout = () => {
+        localStorage.removeItem('token');
+        setToken("");
+        setUser("");
+    }
 
     return (
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+        <nav className="navbar navbar-expand-lg">
+            <div className="container-fluid">
+            <Link to="/" >HobbyRadar</Link>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                        </li>
-                    </ul>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    {user && 
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <Link to="/" >Home</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/account" >Account</Link>
+                            </li>
+                            <button onClick={logout} >Log out</button>
+                        </ul>
+                    }
+                </div>
+                <div>
+                    {!user &&
+                        <div> 
+                            <Link to="/login" >Log In</Link>
+                            <Link to="/register" >Register</Link>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
