@@ -79,6 +79,7 @@ function App() {
 
 
                 <Route path="*" component={NotFound} />
+                <Route path="notfound" component={NotFound} />
             </Switch>
         </Router>);
 }
