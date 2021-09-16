@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./features/User/UserSlice";
 import { setToken } from "./features/User/TokenSlice";
+import { setHobbies } from "./features/Pages/Hobby/HobbySlice";
 
 import "./App.css";
 import Home from "./features/Pages/Home/Home";
@@ -32,7 +33,8 @@ function App() {
 
     // Try to get a local token, then get the user info
     useEffect(() => {
-        getUserInfo()
+        getUserInfo();
+        getHobbies();
     }, [])
     
     
@@ -45,6 +47,13 @@ function App() {
             if (response.data) {
                 dispatch(setUser(response.data));
             }
+        }
+    }
+
+    async function getHobbies() {
+        let response = await axios.get("https://localhost:44394/api/Hobbies");
+        if (response.data) {
+            dispatch(setHobbies(response.data));
         }
     }
 
