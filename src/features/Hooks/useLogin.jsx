@@ -1,12 +1,23 @@
 import React, {useState, useEffect } from 'react';
-import axios from 'axios';
+import { useHistory } from 'react-router';
 
-const useLogin = () => {
+import axios from 'axios';
+import { setToken } from '../User/TokenSlice';
+
+const useLogin = (setError) => {
+    const history = useHistory();
+
     async function send(values) {
-        const response = await axios.post("https://localhost:44394/api/authentication/login", values);
-        if (response.data.token) {
-            localStorage.setItem('token', response.data.token);
-            window.location.reload();
+        try {
+            const response = await axios.post("https://localhost:44394/api/authentication/login", values);
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token);
+                setToken(response.data.token);
+                setError(false);
+                history.push("/");
+            }
+        } catch {
+            setError(true);
         }
     }
 
