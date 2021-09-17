@@ -84,6 +84,7 @@ export default function Event(props) {
                 <Fragment>
                     <h1>{currentEvent.name}</h1>
                     <p>{currentEvent.description}</p>
+                    <p>{currentEvent.hobby}</p>
                     <p>{currentEvent.date}</p>
                     <p>{currentEvent.location}</p>
                     {attendees}

@@ -62,6 +62,7 @@ function App() {
     async function getEvents() {
         let response = await axios.get("https://localhost:44394/api/ScheduledEvents");
         if (response.data) {
+            response.data.forEach((event) => event.hobby = event.hobby.name);
             dispatch(setEvents(response.data));
         }
     }
