@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./features/User/UserSlice";
 import { setToken } from "./features/User/TokenSlice";
 import { setHobbies } from "./features/Pages/Hobby/HobbySlice";
+import { setEvents } from "./features/Pages/Event/EventSlice";
 
 import "./App.css";
 import Home from "./features/Pages/Home/Home";
@@ -35,6 +36,7 @@ function App() {
     useEffect(() => {
         getUserInfo();
         getHobbies();
+        getEvents();
     }, [])
     
     
@@ -54,6 +56,13 @@ function App() {
         let response = await axios.get("https://localhost:44394/api/Hobbies");
         if (response.data) {
             dispatch(setHobbies(response.data));
+        }
+    }
+
+    async function getEvents() {
+        let response = await axios.get("https://localhost:44394/api/ScheduledEvents");
+        if (response.data) {
+            dispatch(setEvents(response.data));
         }
     }
 
