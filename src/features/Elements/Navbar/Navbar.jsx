@@ -34,6 +34,9 @@ export default function Navbar(props) {
                             <li className="nav-item">
                                 <Link to="/hobbies" >Find Hobbies</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link to="/events" >Find Events</Link>
+                            </li>
                             <button onClick={logout} >Log out</button>
                         </ul>
                     }
