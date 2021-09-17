@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -15,20 +15,25 @@ export default function Event(props) {
     const eventId = props.match.params.id;
     let [currentEvent, setCurrentEvent] = useState();
     let [userIsAttending, setUserIsAttending] = useState(false);
-    let attendees;
+    let [attendees, setAttendees] = useState();
 
     useEffect(() => {
         try {
-            const thisEvent = allEvents.filter((event) => event.ScheduledEventId === eventId);
-            setCurrentEvent(allEvents.filter((event) => event.ScheduledEventId === eventId));
-            const attendees = thisEvent.Attendees.map((attendee) => {
-                return (
-                    <p>{attendee.UserFirstName} {attendee.UserLastInitial}</p>
-                )
-            })
+            const thisEvent = allEvents.filter((event) => event.scheduledEventId == eventId)[0];
+            setCurrentEvent(thisEvent);
+            if (thisEvent.attendees.length > 0){
+                const attendeeComponents = thisEvent.attendees.map((attendee) => {
+                    return (
+                        <p>{attendee.userFirstName} {attendee.userLastInitial}</p>
+                    )
+                })
+                setAttendees(attendeeComponents);
+            } else {
+                setAttendees(<p>Nobody is registered for this event yet. Be the first!</p>);
+            }
             try {
-                const thisUserAttendance = user.attendingEvents.filter((event) => event.ScheduledEventId === eventId);
-                setUserIsAttending(true);
+                const thisUserAttendance = user.attendingEvents.filter((event) => event.scheduledEventId == eventId);
+                if (thisUserAttendance.length > 0) {setUserIsAttending(true);}
             } catch {}
         } catch {
             history.push("/notfound");
@@ -45,10 +50,11 @@ export default function Event(props) {
         }
         const newEventAttendance = {
             UserId: userId,
-            ScheduledEventId: eventId
+            ScheduledEventId: parseInt(eventId)
         };
+        console.log(newEventAttendance);
         try {
-            let response = await axios.post("https://localhost:44394/api/user/event", newEventAttendance);
+            let response = await axios.post("https://localhost:44394/api/users/event", newEventAttendance);
             if (response.data) {
                 dispatch(setUser(response.data));
                 setUserIsAttending(true);
@@ -60,7 +66,8 @@ export default function Event(props) {
     }
 
     async function cancelAttendance() {
-        let response = await axios.delete(`https://localhost:44394/api/EventAttendances?eventId=${eventId}&userid=${user.id}`)
+        let response = await axios.delete(`https://localhost:44394/api/eventAttendances?eventId=${eventId}&userId=${user.id}`)
+        setUserIsAttending(false);
         status = "Successfully canceled registration!";
     }
 
@@ -68,17 +75,19 @@ export default function Event(props) {
     return (
         <div>
             {!currentEvent && 
-                <h1>Loading...</h1>
+                <Fragment>
+                    <h1>Loading...</h1>
+                </Fragment>
             }
 
             {currentEvent && 
-                <div>
-                    <h1>{currentEvent.Name}</h1>
-                    <p>{currentEvent.Description}</p>
-                    <p>{currentEvent.Date}</p>
-                    <p>{currentEvent.Location}</p>
+                <Fragment>
+                    <h1>{currentEvent.name}</h1>
+                    <p>{currentEvent.description}</p>
+                    <p>{currentEvent.date}</p>
+                    <p>{currentEvent.location}</p>
                     {attendees}
-                </div>
+                </Fragment>
             }
             {!userIsAttending && <button onClick={attendEvent}>Register</button>}
             {userIsAttending && <button onClick={cancelAttendance}>Cancel Registration</button>}
