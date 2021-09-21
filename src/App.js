@@ -9,6 +9,7 @@ import { setUser } from "./features/User/UserSlice";
 import { setToken } from "./features/User/TokenSlice";
 import { setHobbies } from "./features/Pages/Hobby/HobbySlice";
 import { setEvents } from "./features/Pages/Event/EventSlice";
+import { setRecommendations } from "./features/Elements/Recommendations/RecommendationSlice";
 
 import "./App.css";
 import Home from "./features/Pages/Home/Home";
@@ -48,7 +49,10 @@ function App() {
             let response = await axios.get(`https://localhost:44394/api/users/${localUser.id}`);
             if (response.data) {
                 dispatch(setUser(response.data));
+                getRecommendations(response.data);
             }
+        } else {
+            getRecommendations("");
         }
     }
 
@@ -64,6 +68,19 @@ function App() {
         if (response.data) {
             response.data.forEach((event) => event.hobby = event.hobby.name);
             dispatch(setEvents(response.data));
+        }
+    }
+
+    async function getRecommendations(userInfo) {
+        let url;
+        if (userInfo !== "") {
+            url = `https://localhost:44394/api/recommender?userId=${userInfo.id}&pop=y&rel=y&peo=y`;
+        } else {
+            url = "https://localhost:44394/api/recommender?userId=a&pop=y&rel=n&peo=n";
+        }
+        let response = await axios.get(url);
+        if (response.data){
+            dispatch(setRecommendations(response.data));
         }
     }
 

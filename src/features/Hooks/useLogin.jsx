@@ -16,6 +16,7 @@ const useLogin = (setError) => {
                 localStorage.setItem('token', response.data.token);
                 dispatch(setToken(response.data.token));
                 history.push("/");
+                window.location.reload();
             }
         } catch {
             setError(true);

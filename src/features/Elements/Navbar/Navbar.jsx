@@ -13,6 +13,7 @@ export default function Navbar(props) {
         localStorage.removeItem('token');
         dispatch(setToken(""));
         dispatch(setUser(""));
+        window.location.reload();
     }
 
     return (
