@@ -1,11 +1,16 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 export default function RelatedHobbyRecommendations() {
     let relatedHobbies = useSelector((state) => state.recommendations.value);
-    if (relatedHobbies !== "") {
-        relatedHobbies = relatedHobbies.payload.relatedHobbies;
+    try {
+        if (relatedHobbies.payload.relatedHobbies) {
+            relatedHobbies = relatedHobbies.payload.relatedHobbies;
+        }
+    } catch {
+        relatedHobbies = [];
     }
     console.log("Related Hobbies: ");
     if (relatedHobbies) {
@@ -13,8 +18,8 @@ export default function RelatedHobbyRecommendations() {
     }
 
     return (
-        <div>
-            <h3>Try new things</h3>
+        <div className="col">
+            <h2>Try new things</h2>
             {relatedHobbies.length === 0 &&
                 <Fragment>
                     <h4>Sorry, we can't find any good recommendations for you right now. Check back soon!</h4>
@@ -22,12 +27,20 @@ export default function RelatedHobbyRecommendations() {
             }
             {relatedHobbies.length > 0 &&
                 <Fragment>
-                    {relatedHobbies.map((hobby) => {
-                        return <h4>{hobby.hobbyName}</h4>
-                    })}
-                </Fragment>    
+                    <ol className="list-group list-group-numbered">
+                        {relatedHobbies.map((hobby) => {
+                            return (
+                                <li className="list-group-item d-flex justify-content-between align-items-start">
+                                    <Link to={`hobbies/${hobby.hobbyId}`} className="ms-2 me-auto">
+                                        <div className="fw-bold">{hobby.hobbyName}</div>
+                                    </Link>
+                                    <span className="badge bg-primary rounded-pill">{hobby.score}</span>
+                                </li>
+                            )
+                        })}
+                    </ol>
+                </Fragment>
             }
-
         </div>
     )
 }

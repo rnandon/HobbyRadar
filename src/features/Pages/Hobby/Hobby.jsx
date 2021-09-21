@@ -18,7 +18,8 @@ export default function Hobby(props) {
     let [currentHobby, setCurrentHobby] = useState();
     useEffect(() => {
         try {
-            setCurrentHobby(allHobbies.filter((hobby) => hobby.hobbyId == hobbyId));
+            const selectedHobby = allHobbies.filter((hobby) => hobby.hobbyId == hobbyId)[0];
+            setCurrentHobby(selectedHobby);
             try {
                 const uhr = user.userHobbies.filter((userHobby) => userHobby.hobbyId == hobbyId)[0];
                 tempHobbyRating = uhr.userRating;
@@ -71,22 +72,9 @@ export default function Hobby(props) {
         }
     }
 
-    // async function refreshUser() {
-    //     const userId = user.id;
-    //     try {
-    //         let response = await axios.get(`https://localhost:44394/api/users/${userId}`);
-    //         if (response.data) {
-    //             dispatch(setUser(response.data));
-    //         }
-    //     } catch {
-    //         history.push("/notfound");
-    //     }
-    // }
-
     const setTempRating = (value) => {
         tempHobbyRating = value;
     }
-
 
     return (
         <div>
@@ -97,10 +85,20 @@ export default function Hobby(props) {
             }
 
             {currentHobby &&
-                <div>
+                <Fragment>
                     <h1>
                         {currentHobby.name}
                     </h1>
+                    <h2>Tags:</h2>
+                    <div className="row">
+                        {currentHobby.tags.map((tag) => {
+                            return (
+                                <div className="col-sm-2">
+                                    {tag}
+                                </div>
+                            )
+                        })}
+                    </div>
                     {userHobbyRating !== -1 &&
                         <Fragment>
                             <p>Current rating: {userHobbyRating}</p>
@@ -130,7 +128,7 @@ export default function Hobby(props) {
                             <h3>{status}</h3>
                         </Fragment>
                     }
-                </div>
+                </Fragment>
             }
         </div>
     )

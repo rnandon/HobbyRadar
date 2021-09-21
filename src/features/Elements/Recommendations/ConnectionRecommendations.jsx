@@ -1,11 +1,16 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 export default function ConnectionRecommendations() {
     let connectionRecommendations = useSelector((state) => state.recommendations.value);
-    if (connectionRecommendations !== "") {
-        connectionRecommendations = connectionRecommendations.payload.possibleConnections;
+    try {
+        if (connectionRecommendations.payload.possibleConnections) {
+            connectionRecommendations = connectionRecommendations.payload.possibleConnections;
+        }
+    } catch {
+        connectionRecommendations = [];
     }
     console.log("Connection recommendations: ");
     if (connectionRecommendations) {
@@ -13,8 +18,8 @@ export default function ConnectionRecommendations() {
     }
 
     return (
-        <div>
-            <h3>Find new friends</h3>
+        <div className="col">
+            <h2>Find new friends</h2>
             {connectionRecommendations.length === 0 &&
                 <Fragment>
                     <h4>Sorry, there aren't any people in your area right now. Check back soon!</h4>
@@ -22,9 +27,18 @@ export default function ConnectionRecommendations() {
             }
             {connectionRecommendations.length > 0 &&
                 <Fragment>
-                    {connectionRecommendations.map((connection) => {
-                        return <h4>{connection.firstName}</h4>
-                    })}
+                    <ol className="list-group list-group-numbered">
+                        {connectionRecommendations.map((connection) => {
+                            return (
+                                <li className="list-group-item d-flex justify-content-between align-items-start">
+                                    <Link to={`/people/${connection.id}`} className="ms-2 me-auto">
+                                        <div className="fw-bold">{connection.firstName} {connection.lastInitial}</div>
+                                    </Link>
+                                    <span className="badge bg-primary rounded-pill">{connection.rating}</span>
+                                </li>
+                            )
+                        })}
+                    </ol>
                 </Fragment>
             }
         </div>
