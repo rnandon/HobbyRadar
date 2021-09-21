@@ -101,8 +101,8 @@ function App() {
                 <Route path="/events" exact component={FindEvents} />
                 <Route path="/events/:id" component={Event} />
                 
-                <Route path="/people" component={FindPeople} />
-                <Route path="/people/:id" component={OtherUser} />
+                <Route path="/people" exact component={FindPeople} />
+                <Route path="/people/:username" component={OtherUser} />
 
 
                 <Route path="*" component={NotFound} />

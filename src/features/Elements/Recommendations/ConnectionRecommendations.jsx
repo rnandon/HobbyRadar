@@ -31,7 +31,7 @@ export default function ConnectionRecommendations() {
                         {connectionRecommendations.map((connection) => {
                             return (
                                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                                    <Link to={`/people/${connection.id}`} className="ms-2 me-auto">
+                                    <Link to={`/people/${connection.username}`} className="ms-2 me-auto">
                                         <div className="fw-bold">{connection.firstName} {connection.lastInitial}</div>
                                     </Link>
                                     <span className="badge bg-primary rounded-pill">{connection.rating}</span>
