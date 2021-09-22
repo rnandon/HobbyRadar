@@ -57,6 +57,29 @@ export default function Account(props) {
                             </ol>
                         }
                     </div>
+                        <h2>Hobbies you're interested in</h2>
+                        {user.userHobbies.length === 0 &&
+                            <p>You haven't followed any hobbies yet. Check <Link to="/hobbies">here</Link> to find something new!</p>
+                        }
+                        {user.userHobbies.length > 0 &&
+                            <ol className="list-group list-group-numbered">
+                                {user.userHobbies.map((hobby) => {
+                                    return (
+                                        <li className="list-group-item d-flex justify-content-between align-items-start" >
+                                            <Link to={`hobbies/${hobby.hobbyId}`} className="ms-2 me-auto" >
+                                                <div className="fw-bold">{hobby.name}</div>
+                                            </Link>
+                                        </li>
+                                    )
+
+                                })}
+
+                            </ol>
+                        
+                        }
+                    <div>
+
+                    </div>
                 </div>
             }
             {!user &&
