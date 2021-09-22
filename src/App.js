@@ -74,9 +74,9 @@ function App() {
     async function getRecommendations(userInfo) {
         let url;
         if (userInfo !== "") {
-            url = `https://localhost:44394/api/recommender?userId=${userInfo.id}&pop=y&rel=y&peo=y`;
+            url = `https://localhost:44394/api/recommender?userId=${userInfo.id}&pop=y&rel=y&peo=y&loc=y`;
         } else {
-            url = "https://localhost:44394/api/recommender?userId=a&pop=y&rel=n&peo=n";
+            url = "https://localhost:44394/api/recommender?userId=a&pop=y&rel=n&peo=n&loc=n";
         }
         let response = await axios.get(url);
         if (response.data){

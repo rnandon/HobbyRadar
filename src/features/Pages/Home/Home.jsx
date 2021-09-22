@@ -1,6 +1,7 @@
 import ConnectionRecommendations from "../../Elements/Recommendations/ConnectionRecommendations";
 import PopularHobbies from "../../Elements/Recommendations/PopularHobbies";
 import RelatedHobbyRecommendations from "../../Elements/Recommendations/RelatedHobbyRecommendations";
+import LocallyPopularHobbies from "../../Elements/Recommendations/LocallyPopularHobbies";
 
 export default function Home(props) {
     return (
@@ -11,6 +12,7 @@ export default function Home(props) {
                 <ConnectionRecommendations className="col" />
                 <RelatedHobbyRecommendations className="col" />
                 <PopularHobbies className="col" />
+                <LocallyPopularHobbies className="col" />
             </div>
         </div>
     )
