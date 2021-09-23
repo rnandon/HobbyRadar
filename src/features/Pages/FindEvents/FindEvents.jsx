@@ -8,7 +8,7 @@ import NewEvent from './NewEvent';
 export default function FindEvents(props) {
     const allEvents = useSelector((state) => state.events.value.payload);
     let eventComponents = [];
-    if (allEvents) {
+    if (allEvents != "") {
         eventComponents = allEvents.map((event) => {
             return (
                 <Link to={`/events/${event.scheduledEventId}`}>
@@ -34,3 +34,11 @@ export default function FindEvents(props) {
         </div>
     )
 }
+
+// scheduledEventId(pin):1
+// hobbyId(pin):3
+// hobby(pin):"AIRBRUSHING"
+// date(pin):"2021-10-23T10:05:41.192448"
+// name(pin):"Try AIRBRUSHING"
+// description(pin):"Come check out AIRBRUSHING with us!"
+// location(pin):"Milwaukee, WI"
