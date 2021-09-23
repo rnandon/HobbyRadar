@@ -40,7 +40,7 @@ export default function InviteExternal(props) {
                     <div className="offcanvas-body">
                         <form className="mb-3" onSubmit={handleSubmit} >
                             <input className="form-control form-control-lg" type="text" required="true" placeholder="Name" name="name" onChange={handleChange} />
-                            <select className="form-select" name="contactMethod" required="true" aria-label="Contact mehtod selector" onChange={handleChange} >
+                            <select className="form-select" name="contactMethod" required="true" aria-label="Contact method selector" onChange={handleChange} >
                                 <option value="phone" selected>Phone</option>
                                 <option value="email">Email</option>
                             </select>

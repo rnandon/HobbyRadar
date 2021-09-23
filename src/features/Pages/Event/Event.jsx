@@ -16,6 +16,7 @@ export default function Event(props) {
     let [currentEvent, setCurrentEvent] = useState();
     let [userIsAttending, setUserIsAttending] = useState(false);
     let [attendees, setAttendees] = useState();
+    let [userToInvite, setUserToInvite] = useState();
 
     useEffect(() => {
         try {
@@ -71,6 +72,20 @@ export default function Event(props) {
         status = "Successfully canceled registration!";
     }
 
+    async function inviteConnection(event) {
+        event.preventDefault();
+        const link = `https://hobbyradar.co/events/${currentEvent.id}`
+
+        let userAlert = {
+            userId: userToInvite,
+            message: `Your friend ${user.firstName} thinks you might like an event! Check it out here: ${link}`
+        }
+        let response = await axios.post("https://localhost:44394/api/userAlerts", userAlert);
+        if (response.data){
+            status = "Invite sent!";
+        }
+    }
+
 
     return (
         <div>
@@ -88,6 +103,21 @@ export default function Event(props) {
                     <p>{currentEvent.date}</p>
                     <p>{currentEvent.location}</p>
                     {attendees}
+                    {user.connections.length > 0 &&
+                        <Fragment>
+                            <h2>Notice somebody missing?</h2>
+                            <p>Invite a friend!</p>
+                            <form classname="mb-3" onSubmit={inviteConnection}>
+                                <select  className="form-select" name="friend" required="true" aria-label="Friend selector" onChange={(event) => setUserToInvite(event.target.value)}>
+                                    <option value="">Select a friend!</option>
+                                    {user.connections.map((connection) => {
+                                        return <option value={connection.id}>{connection.name}</option>
+                                    })}
+                                </select>
+                                <button className="btn btn-primary" type="submit">Invite Friend</button>
+                            </form>
+                        </Fragment>
+                    }
                 </Fragment>
             }
             {!userIsAttending && <button onClick={attendEvent}>Register</button>}
