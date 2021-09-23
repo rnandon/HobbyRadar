@@ -10,6 +10,7 @@ import { setToken } from "./features/User/TokenSlice";
 import { setHobbies } from "./features/Pages/Hobby/HobbySlice";
 import { setEvents } from "./features/Pages/Event/EventSlice";
 import { setRecommendations } from "./features/Elements/Recommendations/RecommendationSlice";
+import { setTags } from "./features/Pages/Hobby/TagSlice"
 
 import "./App.css";
 import Home from "./features/Pages/Home/Home";
@@ -38,6 +39,7 @@ function App() {
         getUserInfo();
         getHobbies();
         getEvents();
+        getTags();
     }, [])
     
     
@@ -82,6 +84,16 @@ function App() {
         if (response.data){
             dispatch(setRecommendations(response.data));
         }
+    }
+
+    async function getTags() {
+        try {
+            let response = await axios.get("https://localhost:44394/api/Tags");
+            if (response.data) {
+                const tagNames = response.data.map((tag) => {return tag.name})
+                dispatch(setTags(tagNames));
+            }
+        } catch {}
     }
 
     return (

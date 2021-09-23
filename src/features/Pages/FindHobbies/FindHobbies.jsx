@@ -2,11 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import NewHobby from './NewHobby';
+
 
 export default function FindHobbies(props) {
     const allHobbies = useSelector((state) => state.hobbies.value.payload);
     let hobbyComponents = [];
-    if (allHobbies) {
+    try {
         hobbyComponents = allHobbies.map((hobby) => {
             const hobbyTags = hobby.tags.map((tag) => {
                 return (
@@ -22,6 +24,8 @@ export default function FindHobbies(props) {
                 </Link>
             )
         });
+    } catch {
+        
     }
 
     return (
@@ -29,6 +33,7 @@ export default function FindHobbies(props) {
             <h1>
                 This is the find hobbies page.
             </h1>
+            <NewHobby />
             {hobbyComponents}
         </div>
     )

@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import NewEvent from './NewEvent';
+
 
 export default function FindEvents(props) {
     const allEvents = useSelector((state) => state.events.value.payload);
@@ -27,6 +29,7 @@ export default function FindEvents(props) {
             {eventComponents.length === 0 &&
                 <h2>Sorry, there aren't any events right now.</h2>
             }
+            <NewEvent />
             {eventComponents}
         </div>
     )
