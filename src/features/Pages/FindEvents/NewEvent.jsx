@@ -95,7 +95,7 @@ export default function NewEvent() {
                     </div>
                     <div className="offcanvas-body">
                         <form className="mb-3" onSubmit={handleSubmit} >
-                            <input className="form-control form-control-lg" type="text" placeholder="Event Name" name="name" onChange={handleChange} />
+                            <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Name" name="name" onChange={handleChange} />
                             {hobbies.length === 0 &&
                                 <h2>Loading...</h2>
                             }
@@ -111,13 +111,12 @@ export default function NewEvent() {
                                     })}
                                 </div>
                             }
-                            <input className="form-control form-control-lg" type="text" placeholder="Event Description" name="description" onChange={handleChange} />
-                            <input className="form-control form-control-lg" type="text" placeholder="Event Location" name="location" onChange={handleChange} />
+                            <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Description" name="description" onChange={handleChange} />
+                            <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Location" name="location" onChange={handleChange} />
                             <div className="row">
-                                <input className="form-control col" type="date" min="2020-09-01" name="date" onChange={handleChange} />
-                                <select className="form-select col" name="hour" aria-label="Default select example" onChange={handleChange} >
-                                    <option selected>Hour</option>
-                                    <option value="1">1</option>
+                                <input className="form-control col" type="date" min="2020-09-01" required="true" name="date" onChange={handleChange} />
+                                <select className="form-select col" name="hour" required="true" aria-label="Default select example" onChange={handleChange} >
+                                    <option value="1" selected>1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
@@ -130,13 +129,13 @@ export default function NewEvent() {
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </select>
-                                <select className="form-select col" name="minutes" aria-label="Minutes selector" onChange={handleChange} >
+                                <select className="form-select col" name="minutes" required="true" aria-label="Minutes selector" onChange={handleChange} >
                                     <option value="00" selected>:00</option>
-                                    <option value="15" selected>:15</option>
-                                    <option value="30" selected>:30</option>
-                                    <option value="45" selected>:45</option>
+                                    <option value="15" >:15</option>
+                                    <option value="30" >:30</option>
+                                    <option value="45" >:45</option>
                                 </select>
-                                <select className="form-select col" name="dayPart" aria-label="AM/PM selector" onChange={handleChange} >
+                                <select className="form-select col" name="dayPart" required="true" aria-label="AM/PM selector" onChange={handleChange} >
                                     <option value="AM" selected>AM</option>
                                     <option value="PM">PM</option>
                                 </select>

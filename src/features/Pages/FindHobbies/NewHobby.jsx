@@ -21,7 +21,8 @@ export default function NewHobby() {
                 hobbyId: response.data.hobbyId,
                 tags: formValues.tags,
             }
-            dispatch(setHobbies(...hobbies, newHobby));
+            const allHobbies = [...hobbies, newHobby];
+            dispatch(setHobbies(allHobbies));
         }
     }
 
