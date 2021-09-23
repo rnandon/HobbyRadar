@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import InviteExternal from '../../Elements/InviteExternal/InviteExternal';
 
 
 export default function Account(props) {
     const user = useSelector((state) => state.user.value.payload);
-    console.log(user);
 
     return (
         <div>
@@ -39,6 +39,7 @@ export default function Account(props) {
 
                     <div>
                         <h2>See what your friends are up to</h2>
+                        <InviteExternal />
                         {user.connections.length === 0 &&
                             <p>You haven't added any friends yet. Find someone <Link to="/people">here,</Link> or invite someone new!</p>
                         }
