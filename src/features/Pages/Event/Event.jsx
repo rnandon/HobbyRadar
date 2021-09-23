@@ -74,7 +74,7 @@ export default function Event(props) {
 
     async function inviteConnection(event) {
         event.preventDefault();
-        const link = `https://hobbyradar.co/events/${currentEvent.id}`
+        const link = `https://hobbyradar.co/events/${eventId}`
 
         let userAlert = {
             userId: userToInvite,

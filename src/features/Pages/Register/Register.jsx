@@ -42,8 +42,10 @@ export default function Register(props) {
                 phoneNumber: formValues.phoneNumber,
                 userCity: formValues.userCity,
                 userState: formValues.userState,
-                userZip: formValues.userZip
+                userZip: formValues.userZip,
+                contactPreference: formValues.contactPreference
             };
+            console.log(userDto);
             register(userDto);
         }
     }
