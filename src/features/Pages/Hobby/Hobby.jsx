@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import getKeys from '../../ApiKeys';
 import { setUser } from '../../User/UserSlice';
 
 
@@ -16,6 +17,10 @@ export default function Hobby(props) {
     const history = useHistory();
     const hobbyId = props.match.params.id;
     let [currentHobby, setCurrentHobby] = useState();
+    let [viewMap, setViewMap] = useState(false);
+    let [mapLocation, setMapLocation] = useState("");
+    const apiKeys = getKeys();
+
     useEffect(() => {
         try {
             const selectedHobby = allHobbies.filter((hobby) => hobby.hobbyId == hobbyId)[0];
@@ -126,6 +131,22 @@ export default function Hobby(props) {
                         <Fragment>
                             <button onClick={() => followHobby(hobbyId)} >Follow</button>
                             <h3>{status}</h3>
+                        </Fragment>
+                    }
+                    <form onSubmit={() => setViewMap(true)}>
+                        <input type="text" onChange={(event) => setMapLocation(event.target.value)} placeholder="Enter a location" />
+                        <button type="submit">Search</button>
+                    </form>
+                    {viewMap &&
+                        <Fragment>
+                            <iframe
+                                width="600"
+                                height="450"
+                                style="border:0"
+                                loading="lazy"
+                                allowfullscreen
+                                src={`https://www.google.com/maps/embed/v1/search?key=${apiKeys.google}&q=${mapLocation.replace(" ", "+")}`}>
+                            </iframe>
                         </Fragment>
                     }
                 </Fragment>

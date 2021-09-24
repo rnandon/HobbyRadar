@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { setUser } from '../../User/UserSlice';
+import getKeys from '../../ApiKeys';
 
 
 export default function Event(props) {
@@ -17,6 +18,8 @@ export default function Event(props) {
     let [userIsAttending, setUserIsAttending] = useState(false);
     let [attendees, setAttendees] = useState();
     let [userToInvite, setUserToInvite] = useState();
+
+    const apiKeys = getKeys();
 
     useEffect(() => {
         try {
@@ -116,6 +119,18 @@ export default function Event(props) {
                                 </select>
                                 <button className="btn btn-primary" type="submit">Invite Friend</button>
                             </form>
+                        </Fragment>
+                    }
+                    {currentEvent.location !== "online" &&
+                        <Fragment>
+                            <iframe
+                                width="600"
+                                height="450"
+                                style="border:0"
+                                loading="lazy"
+                                allowfullscreen
+                                src={`https://www.google.com/maps/embed/v1/place?key=${apiKeys.google}&q=${currentEvent.location.replace(" ", "+")}`}>
+                            </iframe>
                         </Fragment>
                     }
                 </Fragment>
