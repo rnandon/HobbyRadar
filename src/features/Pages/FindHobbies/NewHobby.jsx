@@ -1,13 +1,10 @@
 import axios from "axios";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
 import useForm from "../../Hooks/useForm";
 import { setHobbies } from "../Hobby/HobbySlice";
 
 export default function NewHobby() {
-    const history = useHistory();
     const { formValues, handleChange, handleSubmit } = useForm(() => postHobby(formValues));
     let tags = useSelector((state) => state.tags.value.payload);
     const hobbies = useSelector((state) => state.hobbies.value.payload);

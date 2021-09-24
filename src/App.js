@@ -1,10 +1,10 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "./features/User/UserSlice";
 import { setToken } from "./features/User/TokenSlice";
 import { setHobbies } from "./features/Pages/Hobby/HobbySlice";
@@ -31,7 +31,6 @@ import OtherUser from "./features/Pages/OtherUser/OtherUser";
 function App() {
     // Get local login info if it is present
     // Set user with Redux/rtk
-    const user = useSelector((state) => state.user.value);
     const dispatch = useDispatch();
 
     // Try to get a local token, then get the user info

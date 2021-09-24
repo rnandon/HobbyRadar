@@ -1,13 +1,11 @@
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
 import useForm from "../../Hooks/useForm";
 import { setEvents } from "../Event/EventSlice";
 
 export default function NewEvent() {
-    const history = useHistory();
     const { formValues, handleChange, handleSubmit } = useForm(() => postEvent(formValues));
     let events = useSelector((state) => state.events.value.payload);
     const hobbies = useSelector((state) => state.hobbies.value.payload);
@@ -59,29 +57,6 @@ export default function NewEvent() {
         const ticks = eventDate.getTime() * 10000;
         return ticks;
     }
-
-    const modifySelectedHobby = (event) => {
-        let currentValue = []
-        if (formValues.tags) {
-            currentValue = formValues.tags;
-        }
-
-        // If the value is in the list, we need to remove it. Otherwise, add it.
-        if (currentValue.includes(event.target.name)) {
-            currentValue = currentValue.filter((tag) => tag != event.target.name);
-        } else {
-            currentValue.push(event.target.name);
-        }
-        const formPass = {
-            target: {
-                name: "hobby",
-                value: currentValue
-            },
-            persist: () => {}
-        }
-        handleChange(formPass);
-    }
-
 
     return (
         <nav className="navbar navbar-light bg-light">

@@ -12,10 +12,6 @@ export default function LocallyPopularHobbies() {
     } catch {
         popularHobbies = [];
     }
-    console.log("Popular Hobbies: ");
-    if (popularHobbies) {
-        console.log(popularHobbies);
-    }
 
     return (
         <div className="col">

@@ -47,6 +47,7 @@ export default function Register(props) {
             };
             console.log(userDto);
             register(userDto);
+            history.push("/");
         }
     }
 

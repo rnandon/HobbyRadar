@@ -12,10 +12,6 @@ export default function ConnectionRecommendations() {
     } catch {
         connectionRecommendations = [];
     }
-    console.log("Connection recommendations: ");
-    if (connectionRecommendations) {
-        console.log(connectionRecommendations);
-    }
 
     return (
         <div className="col">

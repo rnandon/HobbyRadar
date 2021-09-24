@@ -12,10 +12,6 @@ export default function RelatedHobbyRecommendations() {
     } catch {
         relatedHobbies = [];
     }
-    console.log("Related Hobbies: ");
-    if (relatedHobbies) {
-        console.log(relatedHobbies);
-    }
 
     return (
         <div className="col">
