@@ -133,8 +133,8 @@ export default function Hobby(props) {
                             <h3>{status}</h3>
                         </Fragment>
                     }
-                    <form onSubmit={() => setViewMap(true)}>
-                        <input type="text" onChange={(event) => setMapLocation(event.target.value)} placeholder="Enter a location" />
+                    <form onSubmit={(event) => {event.preventDefault();setViewMap(true)}}>
+                        <input type="text" onChange={(event) => {event.preventDefault();setMapLocation(event.target.value);}} placeholder="Enter a location" />
                         <button type="submit">Search</button>
                     </form>
                     {viewMap &&
@@ -142,10 +142,9 @@ export default function Hobby(props) {
                             <iframe
                                 width="600"
                                 height="450"
-                                style="border:0"
                                 loading="lazy"
-                                allowfullscreen
-                                src={`https://www.google.com/maps/embed/v1/search?key=${apiKeys.google}&q=${mapLocation.replace(" ", "+")}`}>
+                                allowFullScreen
+                                src={`https://www.google.com/maps/embed/v1/search?key=${apiKeys.google}&q=${mapLocation.replace(" ", "+")}+${currentHobby.name}`}>
                             </iframe>
                         </Fragment>
                     }
