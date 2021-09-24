@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -12,13 +12,14 @@ export default function NewEvent() {
     let events = useSelector((state) => state.events.value.payload);
     const hobbies = useSelector((state) => state.hobbies.value.payload);
     const dispatch = useDispatch();
+    let [locationType, setLocationType] = useState("online");
 
     async function postEvent(values) {
         let newEvent = {
             HobbyId: values.hobby,
             Name: values.name,
             Description: values.description,
-            Location: values.location,
+            Location: locationType === "online"? "online" : values.location,
             Date: getDate(values)
         };
 
@@ -112,7 +113,15 @@ export default function NewEvent() {
                                 </div>
                             }
                             <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Description" name="description" onChange={handleChange} />
-                            <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Location" name="location" onChange={handleChange} />
+                            <select className="form-select col" name="locationType" required="true" aria-label="Location type selector" onChange={(event) => setLocationType(event.target.value)}>
+                                <option value="online" selected>Online</option>
+                                <option value="live">In Person</option>
+                            </select>
+                            {locationType === "live" &&
+                                <Fragment>
+                                    <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Location" name="location" onChange={handleChange} />
+                                </Fragment>
+                            }
                             <div className="row">
                                 <input className="form-control col" type="date" min="2020-09-01" required="true" name="date" onChange={handleChange} />
                                 <select className="form-select col" name="hour" required="true" aria-label="Default select example" onChange={handleChange} >
