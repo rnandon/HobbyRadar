@@ -59,11 +59,12 @@ export default function NewEvent() {
     }
 
     return (
-        <nav className="navbar navbar-light bg-light">
             <div className="container-fluid">
-                <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span>New Event</span>
-                </button>
+                <h2> Have something going on you want to share?
+                    <button className="btn btn-primary btn-large mx-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <span>Make A New Event</span>
+                    </button>
+                </h2>
                 <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Schedule a New Event</h5>
@@ -132,7 +133,6 @@ export default function NewEvent() {
                     </div>
                 </div>
             </div>
-        </nav>
 
 
         

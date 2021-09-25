@@ -10,27 +10,35 @@ export default function FindEvents(props) {
     let eventComponents = [];
     if (allEvents != "") {
         eventComponents = allEvents.map((event) => {
+            const eventDate = new Date(event.date);
+
             return (
-                <Link to={`/events/${event.scheduledEventId}`} className="p-5">
-                    <h2>{event.name}</h2>
-                    <p>{event.description}</p>
-                    <p>{event.hobby}</p>
-                    <p>{event.date}</p>
-                </Link>
+                <li className="list-group-item d-flex justify-content-between align-items-start">
+                    <Link to={`/events/${event.scheduledEventId}`} className="px-5 py-2">
+                        <h2>{event.name}</h2>
+                        <p>{event.description}</p>
+                        <p>Main Hobby: {event.hobby}</p>
+                        <p>{eventDate.toString()}</p>
+                    </Link>
+                </li>
             )
         });
     }
 
     return (
-        <div className="p-5">
-            <h1>
-                This is the find events page.
+        <div className="m-5">
+            <br />
+            <h1 className="text-center m-5">
+                Check out events going on!
             </h1>
+            <br />
             {eventComponents.length === 0 &&
                 <h2>Sorry, there aren't any events right now.</h2>
             }
             <NewEvent />
-            {eventComponents}
+            <ol className="list-group">
+                {eventComponents}
+            </ol>
         </div>
     )
 }
