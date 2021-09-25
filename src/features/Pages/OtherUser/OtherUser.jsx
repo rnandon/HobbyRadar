@@ -76,7 +76,7 @@ export default function OtherUser(props) {
 
                     <div>
                         <h2>Hobbies this person follows:</h2>
-                        <ol className="list-group list-group-numbered">
+                        <ol className="list-group">
                             {user.hobbies.map((hobby) => {
                                 return (
                                     <li className="list-group-item d-flex justify-content-between align-items-start">

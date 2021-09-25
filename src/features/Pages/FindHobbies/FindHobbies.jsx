@@ -13,8 +13,7 @@ export default function FindHobbies(props) {
     try {
         hobbyComponents = allHobbies.map((hobby) => {
             if (!(hobby.name.toLowerCase().includes(filterPhrase.toLowerCase())
-               || hobby.tags.join().toLowerCase().includes(filterPhrase.toLocaleLowerCase())
-               )) {
+               || hobby.tags.join().toLowerCase().includes(filterPhrase.toLowerCase()))) {
                    return;
                }
 
