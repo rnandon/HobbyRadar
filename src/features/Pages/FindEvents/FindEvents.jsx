@@ -11,7 +11,7 @@ export default function FindEvents(props) {
     if (allEvents != "") {
         eventComponents = allEvents.map((event) => {
             return (
-                <Link to={`/events/${event.scheduledEventId}`}>
+                <Link to={`/events/${event.scheduledEventId}`} className="p-5">
                     <h2>{event.name}</h2>
                     <p>{event.description}</p>
                     <p>{event.hobby}</p>
@@ -22,7 +22,7 @@ export default function FindEvents(props) {
     }
 
     return (
-        <div>
+        <div className="p-5">
             <h1>
                 This is the find events page.
             </h1>

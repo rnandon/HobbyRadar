@@ -8,7 +8,7 @@ export default function Account(props) {
     const user = useSelector((state) => state.user.value.payload);
 
     return (
-        <div>
+        <div className="p-5">
             {user &&
                 <div>
                     <h1>Hello, {user.firstName}!</h1>

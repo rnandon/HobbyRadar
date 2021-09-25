@@ -12,7 +12,7 @@ export default function FindHobbies(props) {
         hobbyComponents = allHobbies.map((hobby) => {
             const hobbyTags = hobby.tags.map((tag) => {
                 return (
-                    <p>   {tag}   </p>
+                    <p className=" inline-block">{tag}</p>
                 )
             })
             return (

@@ -16,8 +16,8 @@ export default function Home(props) {
                             Find new friends
                         </button>
                     </h2>
-                    <div id="connectionRecommendations" class="accordion-collapse collapse" aria-labelledby="connectionRecommendationsHeader" data-bs-parent="#recommendations">
-                        <div class="accordion-body">
+                    <div id="connectionRecommendations" className="accordion-collapse collapse " aria-labelledby="connectionRecommendationsHeader" data-bs-parent="#recommendations">
+                        <div className="accordion-body">
                             <ConnectionRecommendations />
                         </div>
                     </div>
@@ -29,8 +29,8 @@ export default function Home(props) {
                             Hobbies you may like
                         </button>
                     </h2>
-                    <div id="relatedHobbyRecommendations" class="accordion-collapse collapse" aria-labelledby="relatedHobbyRecommendationsHeader" data-bs-parent="#recommendations">
-                        <div class="accordion-body">
+                    <div id="relatedHobbyRecommendations" className="accordion-collapse collapse" aria-labelledby="relatedHobbyRecommendationsHeader" data-bs-parent="#recommendations">
+                        <div className="accordion-body">
                             <RelatedHobbyRecommendations />
                         </div>
                     </div>
@@ -42,8 +42,8 @@ export default function Home(props) {
                             Most popular hobbies
                         </button>
                     </h2>
-                    <div id="popularHobbiesRecommendations" class="accordion-collapse collapse" aria-labelledby="popularHobbiesRecommendationsHeader" data-bs-parent="#recommendations">
-                        <div class="accordion-body">
+                    <div id="popularHobbiesRecommendations" className="accordion-collapse collapse" aria-labelledby="popularHobbiesRecommendationsHeader" data-bs-parent="#recommendations">
+                        <div className="accordion-body">
                             <PopularHobbies />
                         </div>
                     </div>
@@ -55,8 +55,8 @@ export default function Home(props) {
                             Hobbies popular in your area
                         </button>
                     </h2>
-                    <div id="localHobbiesRecommendations" class="accordion-collapse collapse" aria-labelledby="localHobbiesRecommendationsHeader" data-bs-parent="#recommendations">
-                        <div class="accordion-body">
+                    <div id="localHobbiesRecommendations" className="accordion-collapse collapse" aria-labelledby="localHobbiesRecommendationsHeader" data-bs-parent="#recommendations">
+                        <div className="accordion-body">
                             <LocallyPopularHobbies />
                         </div>
                     </div>
