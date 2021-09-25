@@ -28,7 +28,7 @@ export default function Event(props) {
             if (thisEvent.attendees.length > 0){
                 const attendeeComponents = thisEvent.attendees.map((attendee) => {
                     return (
-                        <p>{attendee.userFirstName} {attendee.userLastInitial}</p>
+                        <li className="list-group-item d-flex justify-content-between align-items-start p-3">{attendee.userFirstName} {attendee.userLastInitial}</li>
                     )
                 })
                 setAttendees(attendeeComponents);
@@ -91,7 +91,7 @@ export default function Event(props) {
 
 
     return (
-        <div>
+        <div className="m-5">
             {!currentEvent && 
                 <Fragment>
                     <h1>Loading...</h1>
@@ -101,23 +101,28 @@ export default function Event(props) {
             {currentEvent && 
                 <Fragment>
                     <h1>{currentEvent.name}</h1>
-                    <p>{currentEvent.description}</p>
-                    <p>{currentEvent.hobby}</p>
-                    <p>{currentEvent.date}</p>
-                    <p>{currentEvent.location}</p>
-                    {attendees}
+                    <h2>{currentEvent.description}</h2>
+                    <p>Main Hobby: {currentEvent.hobby}</p>
+                    <p>Date: {new Date(currentEvent.date).toString()}</p>
+                    <p>Location: {currentEvent.location}</p>
+                    {!userIsAttending && <button className="btn btn-primary" onClick={attendEvent}>Register</button>}
+                    {userIsAttending && <button className="btn btn-primary" onClick={cancelAttendance}>Cancel Registration</button>}
+                    <h2>Registered Attendees: </h2>
+                    <ol className="list-group">
+                        {attendees}
+                    </ol>
                     {user.connections.length > 0 &&
                         <Fragment>
-                            <h2>Notice somebody missing?</h2>
+                            <h3>Notice somebody missing?</h3>
                             <p>Invite a friend!</p>
                             <form classname="mb-3" onSubmit={inviteConnection}>
-                                <select  className="form-select" name="friend" required="true" aria-label="Friend selector" onChange={(event) => setUserToInvite(event.target.value)}>
+                                <select  className="form-select col-sm-6" name="friend" required="true" aria-label="Friend selector" onChange={(event) => setUserToInvite(event.target.value)}>
                                     <option value="">Select a friend!</option>
                                     {user.connections.map((connection) => {
                                         return <option value={connection.id}>{connection.name}</option>
                                     })}
                                 </select>
-                                <button className="btn btn-primary" type="submit">Invite Friend</button>
+                                <button className="col btn btn-primary" type="submit">Invite Friend</button>
                             </form>
                         </Fragment>
                     }
@@ -134,8 +139,6 @@ export default function Event(props) {
                     }
                 </Fragment>
             }
-            {!userIsAttending && <button onClick={attendEvent}>Register</button>}
-            {userIsAttending && <button onClick={cancelAttendance}>Cancel Registration</button>}
         </div>
     )
 }

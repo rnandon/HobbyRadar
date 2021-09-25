@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import getKeys from '../../ApiKeys';
 import { setUser } from '../../User/UserSlice';
 
@@ -20,10 +21,12 @@ export default function Hobby(props) {
     let [viewMap, setViewMap] = useState(false);
     let [mapLocation, setMapLocation] = useState("");
     const apiKeys = getKeys();
+    let [similarHobbies, setSimilarHobbies] = useState([]);
 
     useEffect(() => {
         try {
             const selectedHobby = allHobbies.filter((hobby) => hobby.hobbyId == hobbyId)[0];
+            getSimilarHobbies();
             setCurrentHobby(selectedHobby);
             try {
                 const uhr = user.userHobbies.filter((userHobby) => userHobby.hobbyId == hobbyId)[0];
@@ -34,6 +37,13 @@ export default function Hobby(props) {
             history.push("/notfound");
         }
     }, [])
+
+    async function getSimilarHobbies() {
+        let response = await axios.get(`https://localhost:44394/api/recommender/related/${hobbyId}`);
+        if (response.data) {
+            setSimilarHobbies(response.data);
+        }
+    }
 
     async function followHobby(hobbyId) {
         const userId = user.id;
@@ -82,7 +92,7 @@ export default function Hobby(props) {
     }
 
     return (
-        <div>
+        <div className="m-5">
             {!currentHobby &&
                 <div>
                     <h1>Loading...</h1>
@@ -129,13 +139,13 @@ export default function Hobby(props) {
                     }
                     {userHobbyRating === -1 &&
                         <Fragment>
-                            <button onClick={() => followHobby(hobbyId)} >Follow</button>
+                            <button className="btn btn-primary" onClick={() => followHobby(hobbyId)} >Follow</button>
                             <h3>{status}</h3>
                         </Fragment>
                     }
                     <form onSubmit={(event) => {event.preventDefault();setViewMap(true)}}>
-                        <input type="text" onChange={(event) => {event.preventDefault();setMapLocation(event.target.value);}} placeholder="Enter a location" />
-                        <button type="submit">Search</button>
+                        <input className="form-control" type="text" value={mapLocation} onChange={(event) => {event.preventDefault();setMapLocation(event.target.value);}} placeholder="Enter a location" />
+                        <button className="btn btn-primary" type="submit">Search</button>
                     </form>
                     {viewMap &&
                         <Fragment>
@@ -147,6 +157,22 @@ export default function Hobby(props) {
                                 src={`https://www.google.com/maps/embed/v1/search?key=${apiKeys.google}&q=${mapLocation.replace(" ", "+")}+${currentHobby.name}`}>
                             </iframe>
                         </Fragment>
+                    }
+                    {similarHobbies.length > 0 &&
+                        <Fragment>
+                            <h2>Similar Hobbies: </h2>
+                            <ol className="list-group">
+                                {similarHobbies.map((hobby) => {
+                                    return (
+                                        <li className="list-group-item d-flex justify-content-between align-items-start">
+                                            <Link to={`hobbies/${hobby.hobbyId}`} className="ms-2 me-auto fw-bold">
+                                                {hobby.hobbyName} <span className="badge bg-primary rounded-pill mx-3">Common Tags: {hobby.score}</span>
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
+                            </ol>
+                    </Fragment>
                     }
                 </Fragment>
             }
