@@ -23,14 +23,14 @@ export default function ConnectionRecommendations() {
             }
             {connectionRecommendations.length > 0 &&
                 <Fragment>
-                    <ol className="list-group list-group-numbered">
+                    <ol className="list-group">
                         {connectionRecommendations.map((connection) => {
                             return (
                                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                                    <Link to={`/people/${connection.username}`} className="ms-2 me-auto">
-                                        <div className="fw-bold">{connection.firstName} {connection.lastInitial}</div>
+                                    <Link to={`/people/${connection.username}`} className="ms-2 me-auto fw-bold">
+                                        <span>{connection.firstName} {connection.lastInitial}</span><span className="badge bg-primary rounded-pill mx-3">Common Hobbies: {connection.rating}</span>
                                     </Link>
-                                    <span className="badge bg-primary rounded-pill">{connection.rating}</span>
+                                    
                                 </li>
                             )
                         })}

@@ -23,14 +23,13 @@ export default function RelatedHobbyRecommendations() {
             }
             {relatedHobbies.length > 0 &&
                 <Fragment>
-                    <ol className="list-group list-group-numbered">
+                    <ol className="list-group">
                         {relatedHobbies.map((hobby) => {
                             return (
                                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                                    <Link to={`hobbies/${hobby.hobbyId}`} className="ms-2 me-auto">
-                                        <div className="fw-bold">{hobby.hobbyName}</div>
+                                    <Link to={`hobbies/${hobby.hobbyId}`} className="ms-2 me-auto fw-bold">
+                                        {hobby.hobbyName} <span className="badge bg-primary rounded-pill mx-3">Similarity Rating: {hobby.score}</span>
                                     </Link>
-                                    <span className="badge bg-primary rounded-pill">{hobby.score}</span>
                                 </li>
                             )
                         })}
