@@ -3,8 +3,18 @@ a {
     margin: 15px;
     font-style: normal;
     text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: black;
 }
 
 #brand {
     font-size: x-large;
+}
+
+.navbar-color {
+    background-color: #258039;
+    color: #000;
 }

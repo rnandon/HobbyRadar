@@ -15,7 +15,6 @@ export default function ConnectionRecommendations() {
 
     return (
         <div className="col">
-            <h2>Find new friends</h2>
             {connectionRecommendations.length === 0 &&
                 <Fragment>
                     <h4>Sorry, there aren't any people in your area right now. Check back soon!</h4>

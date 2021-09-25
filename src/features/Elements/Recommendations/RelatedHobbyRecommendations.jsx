@@ -15,7 +15,6 @@ export default function RelatedHobbyRecommendations() {
 
     return (
         <div className="col">
-            <h2>Try new things</h2>
             {relatedHobbies.length === 0 &&
                 <Fragment>
                     <h4>Sorry, we can't find any good recommendations for you right now. Check back soon!</h4>

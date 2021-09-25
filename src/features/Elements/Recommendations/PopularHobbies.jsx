@@ -15,7 +15,6 @@ export default function PopularHobbies() {
 
     return (
         <div className="col">
-            <h2>See what everyone else is into</h2>
             {popularHobbies.length === 0 &&
                 <Fragment>
                     <h4>Sorry, we can't seem to find this info right now. Check back later!</h4>
