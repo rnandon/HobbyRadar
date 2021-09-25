@@ -46,11 +46,12 @@ export default function NewHobby() {
     }
 
     return (
-        <nav className="navbar navbar-light bg-light">
             <div className="container-fluid">
-                <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span>New Hobby</span>
-                </button>
+                <h2 className="">Not seeing something you like?
+                    <button className="btn btn-primary btn-large mx-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <span>Make A New Hobby</span>
+                    </button> 
+                </h2>
                 <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Make a New Hobby</h5>
@@ -81,7 +82,6 @@ export default function NewHobby() {
                     </div>
                 </div>
             </div>
-        </nav>
 
 
         

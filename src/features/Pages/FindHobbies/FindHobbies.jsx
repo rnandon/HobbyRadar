@@ -10,18 +10,13 @@ export default function FindHobbies(props) {
     let hobbyComponents = [];
     try {
         hobbyComponents = allHobbies.map((hobby) => {
-            const hobbyTags = hobby.tags.map((tag) => {
-                return (
-                    <p className=" inline-block">{tag}</p>
-                )
-            })
             return (
-                <Link to={`/hobbies/${hobby.hobbyId}`}>
-                    <h2>{hobby.name}</h2>
-                    <div>
-                        {hobbyTags}
-                    </div>
-                </Link>
+                <li className="list-group-item d-flex justify-content-between align-items-start">
+                    <Link to={`/hobbies/${hobby.hobbyId}`} className="m-3">
+                        <h2>{hobby.name}</h2>
+                        <p>Tags: {hobby.tags.join(", ")}</p>
+                    </Link>
+                </li>
             )
         });
     } catch {
@@ -29,12 +24,16 @@ export default function FindHobbies(props) {
     }
 
     return (
-        <div>
-            <h1>
-                This is the find hobbies page.
+        <div className="m-5">
+            <br />
+            <h1 className="text-center m-5">
+                Find something new to try!
             </h1>
+            <br />
             <NewHobby />
-            {hobbyComponents}
+            <ol className="list-group">
+                {hobbyComponents}
+            </ol>
         </div>
     )
 }
