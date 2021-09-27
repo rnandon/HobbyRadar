@@ -28,7 +28,7 @@ export default function ConnectionRecommendations() {
                             return (
                                 <li className="list-group-item d-flex justify-content-between align-items-start">
                                     <Link to={`/people/${connection.username}`} className="ms-2 me-auto fw-bold">
-                                        <span>{connection.firstName} {connection.lastInitial}</span><span className="badge bg-primary rounded-pill mx-3">Common Hobbies: {connection.rating}</span>
+                                        <span>{connection.firstName} {connection.lastInitial}</span><span className="badge bg-blue rounded-pill mx-3">Common Hobbies: {connection.rating}</span>
                                     </Link>
                                     
                                 </li>

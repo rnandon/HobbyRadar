@@ -28,7 +28,7 @@ export default function PopularHobbies() {
                             return (
                                 <li className="list-group-item d-flex justify-content-between align-items-start">
                                     <Link to={`hobbies/${hobby.hobbyId}`} className="ms-2 me-auto fw-bold">
-                                        {hobby.hobbyName} <span className="badge bg-primary rounded-pill mx-3">Overall Rating: {hobby.overallRating}</span>
+                                        {hobby.hobbyName} <span className="badge bg-blue rounded-pill mx-3">Overall Rating: {hobby.overallRating}</span>
                                     </Link>
                                 </li>
                             )

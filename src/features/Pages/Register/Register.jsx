@@ -308,7 +308,7 @@ export default function Register(props) {
                 }
             </div>
             <div className="col-12">
-                <button className="btn btn-primary" type="submit">Submit form</button>
+                <button className="btn bg-blue" type="submit">Submit form</button>
             </div>
         </form>
     )

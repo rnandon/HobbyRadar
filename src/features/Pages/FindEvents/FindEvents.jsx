@@ -48,7 +48,7 @@ export default function FindEvents(props) {
     return (
         <div className="m-5">
             <br />
-            <h1 className="text-center m-5">
+            <h1 className="text-center m-5 p-0 page-header">
                 Check out events going on!
             </h1>
             <br />

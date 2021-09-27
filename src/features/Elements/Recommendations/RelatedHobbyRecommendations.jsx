@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import './Recommendations.css';
+import '../../../index.css';
 
 
 export default function RelatedHobbyRecommendations() {
@@ -28,7 +29,7 @@ export default function RelatedHobbyRecommendations() {
                             return (
                                 <li className="list-group-item d-flex justify-content-between align-items-start">
                                     <Link to={`hobbies/${hobby.hobbyId}`} className="ms-2 me-auto fw-bold">
-                                        {hobby.hobbyName} <span className="badge bg-primary rounded-pill mx-3">Similarity Rating: {hobby.score}</span>
+                                        {hobby.hobbyName} <span className="badge rounded-pill mx-3 bg-blue">Similarity Rating: {hobby.score}</span>
                                     </Link>
                                 </li>
                             )

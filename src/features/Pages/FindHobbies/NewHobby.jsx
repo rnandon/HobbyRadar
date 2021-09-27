@@ -48,14 +48,14 @@ export default function NewHobby() {
     return (
             <div className="container-fluid">
                 <h2 className="">Not seeing something you like?
-                    <button className="btn btn-primary btn-large mx-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <button className="btn bg-blue btn-large mx-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                         <span>Make A New Hobby</span>
                     </button> 
                 </h2>
-                <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Make a New Hobby</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="offcanvas-body">
                         <form className="mb-3" onSubmit={handleSubmit} >
@@ -76,7 +76,7 @@ export default function NewHobby() {
                                 </div>
                             }
                             <div className="col-12">
-                                <button className="btn btn-primary" type="submit">Save Hobby</button>
+                                <button className="btn bg-blue" type="submit">Save Hobby</button>
                             </div>
                         </form>
                     </div>

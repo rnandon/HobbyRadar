@@ -26,11 +26,11 @@ export default function InviteExternal(props) {
     return (
         <div className="container-fluid">
             <p> Want to share your hobbies with a friend?
-                <button className="btn btn-primary mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button className="btn bg-blue mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span>Invite a Friend!</span>
                 </button>
             </p>
-            <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Invite a Friend!</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -39,7 +39,7 @@ export default function InviteExternal(props) {
                     <form className="mb-3" onSubmit={handleSubmit} >
                         <input className="form-control form-control-lg" type="text" required="true" placeholder="Name" name="name" onChange={handleChange} />
                         <select className="form-select" name="contactMethod" required="true" aria-label="Contact method selector" onChange={handleChange} >
-                            <option value="phone" selected>Phone</option>
+                            <option value="phone" defaultValue>Phone</option>
                             <option value="email">Email</option>
                         </select>
                         {formValues.contactMethod === "phone" &&
@@ -50,7 +50,7 @@ export default function InviteExternal(props) {
                         }
 
                         <div className="col-12">
-                            <button className="btn btn-primary" type="submit">Send Invitation</button>
+                            <button className="btn bg-blue" type="submit">Send Invitation</button>
                         </div>
                     </form>
                 </div>

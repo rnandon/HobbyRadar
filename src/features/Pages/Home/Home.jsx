@@ -6,13 +6,15 @@ import LocallyPopularHobbies from "../../Elements/Recommendations/LocallyPopular
 export default function Home(props) {
     return (
         <div>
-            <h1 className="text-center">Welcome to Hobby Radar!</h1>
-            <h2 className="text-center">What would you like to explore today?</h2>
-
+            <div className="page-header align-items-center text-center my-5">
+                <br />
+                <h1 className="my-3">Welcome to Hobby Radar!</h1>
+                <h2 className="my-3">What would you like to explore today?</h2>
+            </div>
             <div className="accordion m-5 p-5" id="recommendations">
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="connectionRecommendationsHeader">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#connectionRecommendations" aria-expanded="false" aria-controls="connectionRecommendations" >
+                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#connectionRecommendations" aria-expanded="false" aria-controls="connectionRecommendations" >
                             Find new friends
                         </button>
                     </h2>
@@ -25,7 +27,7 @@ export default function Home(props) {
 
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="relatedHobbyRecommendationsHeader">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#relatedHobbyRecommendations" aria-expanded="false" aria-controls="relatedHobbyRecommendations" >
+                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#relatedHobbyRecommendations" aria-expanded="false" aria-controls="relatedHobbyRecommendations" >
                             Hobbies you may like
                         </button>
                     </h2>
@@ -38,7 +40,7 @@ export default function Home(props) {
 
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="popularHobbiesRecommendationsHeader">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#popularHobbiesRecommendations" aria-expanded="false" aria-controls="popularHobbiesRecommendations" >
+                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#popularHobbiesRecommendations" aria-expanded="false" aria-controls="popularHobbiesRecommendations" >
                             Most popular hobbies
                         </button>
                     </h2>
@@ -51,7 +53,7 @@ export default function Home(props) {
 
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="localHobbiesRecommendationsHeader">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#localHobbiesRecommendations" aria-expanded="false" aria-controls="localHobbiesRecommendations" >
+                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#localHobbiesRecommendations" aria-expanded="false" aria-controls="localHobbiesRecommendations" >
                             Hobbies popular in your area
                         </button>
                     </h2>

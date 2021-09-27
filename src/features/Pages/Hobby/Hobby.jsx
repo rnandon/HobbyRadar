@@ -87,6 +87,17 @@ export default function Hobby(props) {
         }
     }
 
+    async function deleteHobby(id) {
+        try {
+            let response = await axios.delete(`https://localhost:44394/api/userhobbyratings?userId=${user.id}&hobbyId=${id}`);
+            if (response.data) {
+                status = "Successfully unfollowed hobby.";
+            }
+        } catch {
+            status = "Something went wrong. Please try again."
+        }
+    }
+
     const setTempRating = (value) => {
         tempHobbyRating = value;
     }
@@ -101,7 +112,7 @@ export default function Hobby(props) {
 
             {currentHobby &&
                 <Fragment>
-                    <h1>
+                    <h1 className="page-header">
                         {currentHobby.name}
                     </h1>
                     <h2>Tags:</h2>
@@ -118,34 +129,35 @@ export default function Hobby(props) {
                         <Fragment>
                             <p>Current rating: {userHobbyRating}</p>
                             <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" onClick={() => setTempRating(1)} />
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autoComplete="off" onClick={() => setTempRating(1)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio1">1</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onClick={() => setTempRating(2)} />
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autoComplete="off" onClick={() => setTempRating(2)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio2">2</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onClick={() => setTempRating(3)} />
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autoComplete="off" onClick={() => setTempRating(3)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio3">3</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" onClick={() => setTempRating(4)} />
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autoComplete="off" onClick={() => setTempRating(4)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio4">4</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" onClick={() => setTempRating(5)} />
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autoComplete="off" onClick={() => setTempRating(5)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio5">5</label>
                             </div>
-                            <button className="btn btn-primary" onClick={() => rateHobby(tempHobbyRating)} >Rate</button>
+                            <button className="btn bg-blue" onClick={() => rateHobby(tempHobbyRating)} >Rate</button>
                             <h3>{status}</h3>
+                            <button className="btn bg-blue" onClick={() => deleteHobby(currentHobby.hobbyId)} >Unfollow</button>
                         </Fragment>
                     }
                     {userHobbyRating === -1 &&
                         <Fragment>
-                            <button className="btn btn-primary" onClick={() => followHobby(hobbyId)} >Follow</button>
+                            <button className="btn bg-blue" onClick={() => followHobby(hobbyId)} >Follow</button>
                             <h3>{status}</h3>
                         </Fragment>
                     }
                     <form onSubmit={(event) => {event.preventDefault();setViewMap(true)}}>
                         <input className="form-control" type="text" value={mapLocation} onChange={(event) => {event.preventDefault();setMapLocation(event.target.value);}} placeholder="Enter a location" />
-                        <button className="btn btn-primary" type="submit">Search</button>
+                        <button className="btn bg-blue" type="submit">Search</button>
                     </form>
                     {viewMap &&
                         <Fragment>

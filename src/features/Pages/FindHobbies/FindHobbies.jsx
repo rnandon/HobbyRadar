@@ -33,7 +33,7 @@ export default function FindHobbies(props) {
     return (
         <div className="m-5">
             <br />
-            <h1 className="text-center m-5">
+            <h1 className="text-center m-5 page-header p-0">
                 Find something new to try!
             </h1>
             <br />

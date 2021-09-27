@@ -12,12 +12,19 @@ export default function OtherUser(props) {
     const [statusMessage, setStatusMessage] = useState("");
     const loggedInUser = useSelector((state) => state.user.value.payload);
     const { formValues, handleChange, handleSubmit } = useForm(() => connect(user, loggedInUser, formValues));
+    let [isConnected, setIsConnected] = useState(false);
 
-    
     async function getUser() {
         let response = await axios.get(`https://localhost:44394/api/users/view/${username}`);
         if (response.data) {
             setUser(response.data);
+            try {
+                const existingConnections = loggedInUser.connections;
+                const connectionIds = existingConnections.map((connection) => {return connection.id});
+                if (connectionIds.includes(response.data.id)) {
+                    setIsConnected(true);
+                }
+            } catch {}
         }
     }
 
@@ -47,6 +54,15 @@ export default function OtherUser(props) {
         }
     }
 
+    async function disconnect(user, loggedInUser) {
+        try {
+            let response = await axios.delete(`https://localhost:44394/api/connections?user1Id=${loggedInUser.id}&user2Id=${user.id}`);
+            if (response.data) {
+                isConnected = false;
+            }
+        } catch {}
+    }
+
     useEffect(() => {getUser()}, []);
 
     return (
@@ -60,20 +76,25 @@ export default function OtherUser(props) {
                 <Fragment>
                     <h1>{user.username}</h1>
                     <h2>{user.name}</h2>
-                    
-                    <div>
-                        <h2>Like what you see? Invite them to connect!</h2>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-3">
-                                <label for="message" className="form-label">Send them a message! (optional)</label>
-                                <textarea className="form-control" name="message" id="message" rows="3" onChange={handleChange}></textarea>
-                            </div>
-                            <div className="col-12">
-                                <button className="btn btn-primary" type="submit">Get Connected</button>
-                            </div>
-                        </form>
-                    </div>
-
+                    {!isConnected &&
+                        <div>
+                            <h2>Like what you see? Invite them to connect!</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="message" className="form-label">Send them a message! (optional)</label>
+                                    <textarea className="form-control" name="message" id="message" rows="3" onChange={handleChange}></textarea>
+                                </div>
+                                <div className="col-12">
+                                    <button className="btn bg-blue" type="submit">Get Connected</button>
+                                </div>
+                            </form>  
+                        </div> 
+                    }
+                    {isConnected &&
+                        <Fragment>
+                            <button className="btn bg-blue" type="button" onClick={() => {disconnect(loggedInUser, user)}}>Disconnect</button>
+                        </Fragment>
+                    }
                     <div>
                         <h2>Hobbies this person follows:</h2>
                         <ol className="list-group">

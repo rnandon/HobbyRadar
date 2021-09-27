@@ -100,13 +100,13 @@ export default function Event(props) {
 
             {currentEvent && 
                 <Fragment>
-                    <h1>{currentEvent.name}</h1>
+                    <h1 className="page-header">{currentEvent.name}</h1>
                     <h2>{currentEvent.description}</h2>
                     <p>Main Hobby: {currentEvent.hobby}</p>
                     <p>Date: {new Date(currentEvent.date).toString()}</p>
                     <p>Location: {currentEvent.location}</p>
-                    {!userIsAttending && <button className="btn btn-primary" onClick={attendEvent}>Register</button>}
-                    {userIsAttending && <button className="btn btn-primary" onClick={cancelAttendance}>Cancel Registration</button>}
+                    {!userIsAttending && <button className="btn bg-blue" onClick={attendEvent}>Register</button>}
+                    {userIsAttending && <button className="btn bg-blue" onClick={cancelAttendance}>Cancel Registration</button>}
                     <h2>Registered Attendees: </h2>
                     <ol className="list-group">
                         {attendees}
@@ -115,14 +115,14 @@ export default function Event(props) {
                         <Fragment>
                             <h3>Notice somebody missing?</h3>
                             <p>Invite a friend!</p>
-                            <form classname="mb-3" onSubmit={inviteConnection}>
+                            <form className="mb-3" onSubmit={inviteConnection}>
                                 <select  className="form-select col-sm-6" name="friend" required="true" aria-label="Friend selector" onChange={(event) => setUserToInvite(event.target.value)}>
                                     <option value="">Select a friend!</option>
                                     {user.connections.map((connection) => {
                                         return <option value={connection.id}>{connection.name}</option>
                                     })}
                                 </select>
-                                <button className="col btn btn-primary" type="submit">Invite Friend</button>
+                                <button className="col btn bg-blue" type="submit">Invite Friend</button>
                             </form>
                         </Fragment>
                     }

@@ -28,7 +28,7 @@ export default function Login(props) {
                 </div>
             </div>
             <div className="col-12">
-                <button className="btn btn-primary" type="submit">Login</button>
+                <button className="btn bg-blue" type="submit">Login</button>
             </div>
         </form>
     )

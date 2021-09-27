@@ -61,18 +61,18 @@ export default function NewEvent() {
     return (
             <div className="container-fluid">
                 <h2> Have something going on you want to share?
-                    <button className="btn btn-primary btn-large mx-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <button className="btn bg-blue btn-large mx-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                         <span>Make A New Event</span>
                     </button>
                 </h2>
-                <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Schedule a New Event</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="offcanvas-body">
                         <form className="mb-3" onSubmit={handleSubmit} >
-                            <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Name" name="name" onChange={handleChange} />
+                            <input className="form-control form-control-lg" type="text" required={true} placeholder="Event Name" name="name" onChange={handleChange} />
                             {hobbies.length === 0 &&
                                 <h2>Loading...</h2>
                             }
@@ -88,20 +88,20 @@ export default function NewEvent() {
                                     })}
                                 </div>
                             }
-                            <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Description" name="description" onChange={handleChange} />
-                            <select className="form-select col" name="locationType" required="true" aria-label="Location type selector" onChange={(event) => setLocationType(event.target.value)}>
-                                <option value="online" selected>Online</option>
+                            <input className="form-control form-control-lg" type="text" required={true} placeholder="Event Description" name="description" onChange={handleChange} />
+                            <select className="form-select col" name="locationType" required={true} aria-label="Location type selector" onChange={(event) => setLocationType(event.target.value)}>
+                                <option value="online" defaultValue>Online</option>
                                 <option value="live">In Person</option>
                             </select>
                             {locationType === "live" &&
                                 <Fragment>
-                                    <input className="form-control form-control-lg" type="text" required="true" placeholder="Event Location" name="location" onChange={handleChange} />
+                                    <input className="form-control form-control-lg" type="text" required={true} placeholder="Event Location" name="location" onChange={handleChange} />
                                 </Fragment>
                             }
                             <div className="row">
-                                <input className="form-control col" type="date" min="2020-09-01" required="true" name="date" onChange={handleChange} />
-                                <select className="form-select col" name="hour" required="true" aria-label="Default select example" onChange={handleChange} >
-                                    <option value="1" selected>1</option>
+                                <input className="form-control col" type="date" min="2020-09-01" required={true} name="date" onChange={handleChange} />
+                                <select className="form-select col" name="hour" required={true} aria-label="Default select example" onChange={handleChange} >
+                                    <option value="1" defaultValue>1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
@@ -114,20 +114,20 @@ export default function NewEvent() {
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </select>
-                                <select className="form-select col" name="minutes" required="true" aria-label="Minutes selector" onChange={handleChange} >
-                                    <option value="00" selected>:00</option>
+                                <select className="form-select col" name="minutes" required={true} aria-label="Minutes selector" onChange={handleChange} >
+                                    <option value="00" defaultValue>:00</option>
                                     <option value="15" >:15</option>
                                     <option value="30" >:30</option>
                                     <option value="45" >:45</option>
                                 </select>
-                                <select className="form-select col" name="dayPart" required="true" aria-label="AM/PM selector" onChange={handleChange} >
-                                    <option value="AM" selected>AM</option>
+                                <select className="form-select col" name="dayPart" required={true} aria-label="AM/PM selector" onChange={handleChange} >
+                                    <option value="AM" defaultValue>AM</option>
                                     <option value="PM">PM</option>
                                 </select>
                             </div>
 
                             <div className="col-12">
-                                <button className="btn btn-primary" type="submit">Save Event</button>
+                                <button className="btn bg-blue" type="submit">Save Event</button>
                             </div>
                         </form>
                     </div>

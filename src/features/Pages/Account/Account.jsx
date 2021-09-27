@@ -16,7 +16,7 @@ export default function Account(props) {
         <div className="p-5">
             {user &&
                 <div>
-                    <h1>Hello, {user.firstName}!</h1>
+                    <h1 className="page-header m-0 p-0">Hello, {user.firstName}!</h1>
 
                     <div>
                         <h2>Upcoming events:</h2>
