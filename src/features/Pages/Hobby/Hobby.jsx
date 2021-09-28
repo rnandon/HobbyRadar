@@ -36,7 +36,7 @@ export default function Hobby(props) {
         } catch {
             history.push("/notfound");
         }
-    }, [])
+    }, [hobbyId])
 
     async function getSimilarHobbies() {
         let response = await axios.get(`https://localhost:44394/api/recommender/related/${hobbyId}`);
@@ -186,7 +186,7 @@ export default function Hobby(props) {
                                 {similarHobbies.map((hobby) => {
                                     return (
                                         <li className="list-group-item d-flex justify-content-between align-items-start">
-                                            <Link to={`hobbies/${hobby.hobbyId}`} className="ms-2 me-auto fw-bold">
+                                            <Link to={`${hobby.hobbyId}`} className="ms-2 me-auto fw-bold">
                                                 {hobby.hobbyName} <span className="badge bg-primary rounded-pill mx-3">Common Tags: {hobby.score}</span>
                                             </Link>
                                         </li>
