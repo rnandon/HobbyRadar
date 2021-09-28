@@ -77,6 +77,7 @@ export default function Hobby(props) {
         console.log(hobbyToUpdate);
         try {
             let response = await axios.put("https://localhost:44394/api/users/uhr", hobbyToUpdate);
+            console.log(response);
             if (response.data) {
                 status = "Sucessfully updated rating!";
                 dispatch(setUser(response.data));
@@ -90,10 +91,18 @@ export default function Hobby(props) {
     async function deleteHobby(id) {
         try {
             let response = await axios.delete(`https://localhost:44394/api/userhobbyratings?userId=${user.id}&hobbyId=${id}`);
-            if (response.data) {
+            if (response.data == "") {
                 status = "Successfully unfollowed hobby.";
+                let hobbyIndex = user.userHobbies.findIndex((hobby) => hobby.hobbyId == id);
+                let newHobbies = user.userHobbies.filter((hobby, index) => index !== hobbyIndex);
+
+                const tempUser = { ...user, userHobbies: newHobbies };
+                dispatch(setUser(tempUser));
+
+                setUserHobbyRating(-1);
             }
-        } catch {
+        } catch (ex) {
+            console.log(ex);
             status = "Something went wrong. Please try again."
         }
     }
@@ -129,19 +138,19 @@ export default function Hobby(props) {
                         <Fragment>
                             <p>Current rating: {userHobbyRating}</p>
                             <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autoComplete="off" onClick={() => setTempRating(1)} />
+                                <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" onClick={() => setTempRating(1)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio1">1</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autoComplete="off" onClick={() => setTempRating(2)} />
+                                <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" onClick={() => setTempRating(2)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio2">2</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autoComplete="off" onClick={() => setTempRating(3)} />
+                                <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autoComplete="off" onClick={() => setTempRating(3)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio3">3</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autoComplete="off" onClick={() => setTempRating(4)} />
+                                <input type="radio" className="btn-check" name="btnradio" id="btnradio4" autoComplete="off" onClick={() => setTempRating(4)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio4">4</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autoComplete="off" onClick={() => setTempRating(5)} />
+                                <input type="radio" className="btn-check" name="btnradio" id="btnradio5" autoComplete="off" onClick={() => setTempRating(5)} />
                                 <label className="btn btn-outline-primary" htmlFor="btnradio5">5</label>
                             </div>
                             <button className="btn bg-blue" onClick={() => rateHobby(tempHobbyRating)} >Rate</button>
