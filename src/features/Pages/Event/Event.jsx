@@ -85,7 +85,7 @@ export default function Event(props) {
         }
         let response = await axios.post("https://localhost:44394/api/userAlerts", userAlert);
         if (response.data){
-            status = "Invite sent!";
+            alert("Invite sent!");
         }
     }
 
