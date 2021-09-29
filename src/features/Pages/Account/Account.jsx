@@ -73,7 +73,7 @@ export default function Account(props) {
                         <h2>See what your friends are up to</h2>
                         <InviteExternal />
                         {user.connections.length === 0 &&
-                            <p>You haven't added any friends yet. Find someone <Link to="/people">here,</Link> or invite someone new!</p>
+                            <p>You haven't added any friends yet. Find someone <Link to="/">here,</Link> or invite someone new!</p>
                         }
                         {user.connections.length > 0 &&
                             <ol className="list-group">

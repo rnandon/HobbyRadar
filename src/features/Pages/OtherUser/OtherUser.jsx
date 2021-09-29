@@ -79,7 +79,7 @@ export default function OtherUser(props) {
     useEffect(() => {getUser()}, []);
 
     return (
-        <div>
+        <div className="m-5">
             {!user &&
                 <Fragment>
                     <h2>Loading...</h2>
