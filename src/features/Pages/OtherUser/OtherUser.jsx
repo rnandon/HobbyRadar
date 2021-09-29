@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -13,16 +14,23 @@ export default function OtherUser(props) {
     const loggedInUser = useSelector((state) => state.user.value.payload);
     const { formValues, handleChange, handleSubmit } = useForm(() => connect(user, loggedInUser, formValues));
     let [isConnected, setIsConnected] = useState(false);
+    const dispatch = useDispatch();
+    const [inviteSent, setInviteSent] = useState(false);
 
     async function getUser() {
         let response = await axios.get(`https://localhost:44394/api/users/view/${username}`);
         if (response.data) {
             setUser(response.data);
+
             try {
                 const existingConnections = loggedInUser.connections;
                 const connectionIds = existingConnections.map((connection) => {return connection.id});
+                const inviteIds = loggedInUser.invitesSent.map((invite) => {return invite.toUserId});
                 if (connectionIds.includes(response.data.id)) {
                     setIsConnected(true);
+                } 
+                if (inviteIds.includes(response.data.id)) {
+                    setInviteSent(true);
                 }
             } catch {}
         }
@@ -44,7 +52,9 @@ export default function OtherUser(props) {
                 let response = await axios.post("https://localhost:44394/api/connectioninvites", newConnectionInvite);
                 console.log(response);
                 if (response.data) {
+                    setInviteSent(true);
                     setStatusMessage("Invite sent!");
+                    alert("Invite sent!");
                 }
             } catch (e) {
                 console.log(e);
@@ -57,7 +67,10 @@ export default function OtherUser(props) {
     async function disconnect(user, loggedInUser) {
         try {
             let response = await axios.delete(`https://localhost:44394/api/connections?user1Id=${loggedInUser.id}&user2Id=${user.id}`);
-            if (response.data) {
+            if (response.data === "") {
+                const connectionIndex = loggedInUser.connections.findIndex((connection) => connection.id === user.id);
+                const updatedConnections = loggedInUser.connections.filter((connection, index) => index !== connectionIndex);
+                dispatch(setUser({...loggedInUser, connections: updatedConnections}));
                 isConnected = false;
             }
         } catch {}
@@ -76,7 +89,7 @@ export default function OtherUser(props) {
                 <Fragment>
                     <h1>{user.username}</h1>
                     <h2>{user.name}</h2>
-                    {!isConnected &&
+                    {(!isConnected && !inviteSent) &&
                         <div>
                             <h2>Like what you see? Invite them to connect!</h2>
                             <form onSubmit={handleSubmit}>
