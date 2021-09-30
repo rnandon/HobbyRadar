@@ -15,10 +15,10 @@ export default function AccountHome(props) {
             <h2>Upcoming events:</h2>
 
             <div>
-                {user.attendingEvents.length === 0 && 
+                {(!user.attendingEvents || user.attendingEvents.length === 0) && 
                     <p>No events scheduled yet. Find something to do <Link to="/events" >here!</Link></p>
                 }
-                {user.attendingEvents.length > 0 &&
+                {(user.attendingEvents && user.attendingEvents.length > 0) &&
                     <ol className="list-group">
                         <li className="list-group-item d-flex justify-content-between align-items-start">
                             <form className="m-3" >
@@ -67,10 +67,10 @@ export default function AccountHome(props) {
             <div>
                 <h2>See what your friends are up to</h2>
                 <InviteExternal />
-                {user.connections.length === 0 &&
+                {(!user.connections || user.connections.length === 0) &&
                     <p>You haven't added any friends yet. Find someone <Link to="/">here,</Link> or invite someone new!</p>
                 }
-                {user.connections.length > 0 &&
+                {(user.connections && user.connections.length > 0) &&
                     <ol className="list-group">
                         <li className="list-group-item d-flex justify-content-between align-items-start">
                             <form className="m-3" >
@@ -98,10 +98,10 @@ export default function AccountHome(props) {
         
             <div>
                 <h2>Hobbies you're interested in</h2>
-                {user.userHobbies.length === 0 &&
+                {(!user.userHobbies || user.userHobbies.length === 0) &&
                     <p>You haven't followed any hobbies yet. Check <Link to="/hobbies">here</Link> to find something new!</p>
                 }
-                {user.userHobbies.length > 0 &&
+                {(user.userHobbies && user.userHobbies.length > 0) &&
                     <ol className="list-group">
                         <li className="list-group-item d-flex justify-content-between align-items-start">
                             <form className="m-3" >

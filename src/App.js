@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./features/User/UserSlice";
 import { setToken } from "./features/User/TokenSlice";
 import { setHobbies } from "./features/Pages/Hobby/HobbySlice";
@@ -123,5 +123,3 @@ function App() {
 }
 
 export default App;
-
-
