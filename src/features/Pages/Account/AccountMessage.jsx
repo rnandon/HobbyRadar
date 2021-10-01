@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { setUser } from "../../User/UserSlice";
 
 export default function AccountMessage(props) {
     const user = props.user
@@ -13,47 +14,66 @@ export default function AccountMessage(props) {
 
     useEffect(() => {
         getUsersThatSentInvites();
-        getAllNotifications();
     }, [])
 
-    // Combine all invites and messages
-    // Create an entry for each one
-    // - Needs to have: 
-    // - - Accept if invite
-    // - - Dismiss button
+    const refreshUser = async () => {
+        try {
+            let response = await axios.get(`https://localhost:44394/api/users/${user.id}`);
+            if (response.data) {
+                getUsersThatSentInvites();
+                dispatch(setUser(response.data));
+            }
+        } catch {}
+    }
 
     async function getUsersThatSentInvites() {
         try {
-            let response = axios.get(`https://localhost:44394/api/ConnectionInvites/to/${user.id}/users`)
+            let response = await axios.get(`https://localhost:44394/api/ConnectionInvites/to/${user.id}/users`)
             if (response.data) {
                 setUsersThatSentInvites(response.data);
+                getAllNotifications(response.data);
             }
         } catch (ex) {
-            alert(ex);
             setUsersThatSentInvites([]);
         }
     }
 
     const dismissConnectionInvite = async (notificationId) => {
-        return;
+        try {
+            let response = await axios.put(`https://localhost:44394/api/ConnectionInvites/dismiss/${notificationId}`);
+            if (response.data == "") {
+                refreshUser();
+            }
+        } catch {}
     }
 
     const dismissEventInvite = async (notificationId) => {
+        try {
+            let response = await axios.put(`https://localhost:44394/api/UserAlerts/dismiss/${notificationId}`);
+            if (response.data == "") {
+                refreshUser();
+            }
+        } catch {}
         return;
     }
 
     const acceptConnectionInvite = async (notificationId) => {
-        return;
+        try {
+            let response = await axios.put(`https://localhost:44394/api/ConnectionInvites/accept/${notificationId}`);
+            if (response.data == "") {
+                refreshUser();
+            }
+        } catch {}
     }
 
-    const getAllNotifications = () => {
+    const getAllNotifications = (inviters) => {
         let currentNotifications = [];
         // Invites received => invitesReceived
         user.invitesReceived.forEach((element) => {
             if (element.dismissed) {
                 return;
             }
-            let relevantUser = usersThatSentInvites.filter((sender) => sender.id === element.fromUserId);
+            let relevantUser = inviters.filter((sender) => sender.id === element.fromUserId);
             if (relevantUser.length === 0) {
                 return;
             } else if (relevantUser.length > 0) {
@@ -61,7 +81,7 @@ export default function AccountMessage(props) {
             }
             const notification = (
                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                    <p>From: <Link to={`people/${relevantUser.id}`} >{relevantUser.name}</Link></p>
+                    <p>From: <Link to={`people/${relevantUser.username}`} >{relevantUser.name}</Link></p>
                     <p>{element.message}</p>
                     <button className="btn bg-blue" onClick={() => acceptConnectionInvite(element.connectionInviteId)} >Accept</button>
                     <button className="btn bg-blue" onClick={() => dismissConnectionInvite(element.connectionInviteId)} >Dismiss</button>
