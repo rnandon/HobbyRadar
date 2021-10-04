@@ -30,7 +30,10 @@ export default function OtherUser(props) {
                     setIsConnected(true);
                 } 
                 if (inviteIds.includes(response.data.id)) {
-                    setInviteSent(true);
+                    const relevantInvite = loggedInUser.invitesSent.filter((invite) => { return (invite.toUserId === response.data.id) });
+                    if (relevantInvite !== null) {
+                        setInviteSent(true);
+                    }
                 }
             } catch {}
         }
