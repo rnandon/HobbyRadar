@@ -5,14 +5,15 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import useForm from '../../Hooks/useForm';
+import { setUser } from '../../User/UserSlice';
 
 
 export default function OtherUser(props) {
     const username = props.match.params.username;
-    const [user, setUser] = useState();
+    const [otherUser, setOtherUser] = useState();
     const [statusMessage, setStatusMessage] = useState("");
     const loggedInUser = useSelector((state) => state.user.value.payload);
-    const { formValues, handleChange, handleSubmit } = useForm(() => connect(user, loggedInUser, formValues));
+    const { formValues, handleChange, handleSubmit } = useForm(() => connect(otherUser, loggedInUser, formValues));
     let [isConnected, setIsConnected] = useState(false);
     const dispatch = useDispatch();
     const [inviteSent, setInviteSent] = useState(false);
@@ -20,7 +21,7 @@ export default function OtherUser(props) {
     async function getUser() {
         let response = await axios.get(`https://localhost:44394/api/users/view/${username}`);
         if (response.data) {
-            setUser(response.data);
+            setOtherUser(response.data);
 
             try {
                 const existingConnections = loggedInUser.connections;
@@ -74,7 +75,8 @@ export default function OtherUser(props) {
                 const connectionIndex = loggedInUser.connections.findIndex((connection) => connection.id === user.id);
                 const updatedConnections = loggedInUser.connections.filter((connection, index) => index !== connectionIndex);
                 dispatch(setUser({...loggedInUser, connections: updatedConnections}));
-                isConnected = false;
+                setInviteSent(false);
+                setIsConnected(false);
             }
         } catch {}
     }
@@ -83,15 +85,15 @@ export default function OtherUser(props) {
 
     return (
         <div className="m-5">
-            {!user &&
+            {!otherUser &&
                 <Fragment>
                     <h2>Loading...</h2>
                 </Fragment>
             }
-            {user &&
+            {otherUser &&
                 <Fragment>
-                    <h1>{user.username}</h1>
-                    <h2>{user.name}</h2>
+                    <h1>{otherUser.username}</h1>
+                    <h2>{otherUser.name}</h2>
                     {(!isConnected && !inviteSent) &&
                         <div>
                             <h2>Like what you see? Invite them to connect!</h2>
@@ -108,13 +110,13 @@ export default function OtherUser(props) {
                     }
                     {isConnected &&
                         <Fragment>
-                            <button className="btn bg-blue" type="button" onClick={() => {disconnect(loggedInUser, user)}}>Disconnect</button>
+                            <button className="btn bg-blue" type="button" onClick={() => {disconnect(otherUser, loggedInUser)}}>Disconnect</button>
                         </Fragment>
                     }
                     <div>
                         <h2>Hobbies this person follows:</h2>
                         <ol className="list-group">
-                            {user.hobbies.map((hobby) => {
+                            {otherUser.hobbies.map((hobby) => {
                                 return (
                                     <li className="list-group-item d-flex justify-content-between align-items-start">
                                         <Link to={`/hobbies/${hobby.hobbyId}`} className="ms-2 me-auto">

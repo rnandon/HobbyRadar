@@ -30,8 +30,8 @@ export default function AccountMessage(props) {
         try {
             let response = await axios.get(`https://localhost:44394/api/ConnectionInvites/to/${user.id}/users`)
             if (response.data) {
-                setUsersThatSentInvites(response.data);
                 getAllNotifications(response.data);
+                setUsersThatSentInvites(response.data);
             }
         } catch (ex) {
             setUsersThatSentInvites([]);
