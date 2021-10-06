@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { setUser } from "../../User/UserSlice";
 
 export default function AccountMessage(props) {
-    const user = props.user
+    const [user, setCurrentUser] = useState(props.user)
     const dispatch = useDispatch();
     const [usersThatSentInvites, setUsersThatSentInvites] = useState([]);
     const [allNotifications, setAllNotifications] = useState([]);
@@ -16,20 +16,17 @@ export default function AccountMessage(props) {
         getUsersThatSentInvites();
     }, [])
 
-    const refreshUser = async () => {
-        try {
-            let response = await axios.get(`https://localhost:44394/api/users/${user.id}`);
-            if (response.data) {
-                getUsersThatSentInvites();
-                dispatch(setUser(response.data));
-            }
-        } catch {}
+    const refreshUser = (updatedUser) => {
+        setCurrentUser(updatedUser);
+        dispatch(setUser(updatedUser));
+        getAllNotifications(usersThatSentInvites, updatedUser);
     }
 
     async function getUsersThatSentInvites() {
         try {
             let response = await axios.get(`https://localhost:44394/api/ConnectionInvites/to/${user.id}/users`)
             if (response.data) {
+                console.log(response.data);
                 getAllNotifications(response.data);
                 setUsersThatSentInvites(response.data);
             }
@@ -42,7 +39,13 @@ export default function AccountMessage(props) {
         try {
             let response = await axios.put(`https://localhost:44394/api/ConnectionInvites/dismiss/${notificationId}`);
             if (response.data == "") {
-                refreshUser();
+                // If the edit was successful
+                const otherInvites = user.invitesReceived.filter((invite) => { return invite.connectionInviteId !== notificationId });
+                const currentInvite = user.invitesReceived.filter((invite) => { return invite.connectionInviteId === notificationId })[0];
+                const newInvite = { ...currentInvite, dismissed: true };
+                otherInvites.push(newInvite);
+                const updatedUser = {...user, invitesReceived: otherInvites };
+                refreshUser(updatedUser);
             }
         } catch {}
     }
@@ -51,7 +54,13 @@ export default function AccountMessage(props) {
         try {
             let response = await axios.put(`https://localhost:44394/api/UserAlerts/dismiss/${notificationId}`);
             if (response.data == "") {
-                refreshUser();
+                // If the edit was successful
+                const otherAlerts = user.alerts.filter((alert) => { return alert.userAlertId !== notificationId });
+                const currentAlert = user.alerts.filter((alert) => { return alert.userAlertId === notificationId })[0];
+                const newAlert = { ...currentAlert, dismissed: true };
+                otherAlerts.push(newAlert);
+                const updatedUser = {...user, alerts: otherAlerts };
+                refreshUser(updatedUser);
             }
         } catch {}
         return;
@@ -61,15 +70,21 @@ export default function AccountMessage(props) {
         try {
             let response = await axios.put(`https://localhost:44394/api/ConnectionInvites/accept/${notificationId}`);
             if (response.data == "") {
-                refreshUser();
+                // If the edit was successful
+                const otherInvites = user.invitesReceived.filter((invite) => { return invite.connectionInviteId !== notificationId });
+                const currentInvite = user.invitesReceived.filter((invite) => { return invite.connectionInviteId === notificationId })[0];
+                const newInvite = { ...currentInvite, accepted: true, dismissed: true };
+                otherInvites.push(newInvite);
+                const updatedUser = {...user, invitesReceived: otherInvites };
+                refreshUser(updatedUser);
             }
         } catch {}
     }
 
-    const getAllNotifications = (inviters) => {
+    const getAllNotifications = (inviters, currentUser=user) => {
         let currentNotifications = [];
         // Invites received => invitesReceived
-        user.invitesReceived.forEach((element) => {
+        currentUser.invitesReceived.forEach((element) => {
             if (element.dismissed) {
                 return;
             }
@@ -90,7 +105,7 @@ export default function AccountMessage(props) {
             currentNotifications.push(notification);
         })
         // UserAlerts => alerts
-        user.alerts.forEach((element) => {
+        currentUser.alerts.forEach((element) => {
             if (element.dismissed) {
                 return;
             }
